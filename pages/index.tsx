@@ -21,11 +21,18 @@ export default function Simulator() {
   const Pb = price[1]
   const RangeMax = p0*2.5
   const RangeMin = p0/5
-  const get_y = (w, p) => w * (1-Math.sqrt(Pa/p))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb))
-  const get_x = (w, p) => w * (1-Math.sqrt(p/Pb))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb)) / p
+  const get_y = (w, p) => {
+    if(p <= Pa){
+      return 0
+    }else if(p >= Pb){
+      return w
+    }else{
+      return w * (1-Math.sqrt(Pa/p))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb))
+    }
+  }
+  const get_x = (w, p) => (w-get_y(w,p)) / p
   const y0 = get_y(w0, p0)
   const x0 = get_x(w0, p0)
-  // console.log(y0 + x0 * p0)
   const L_v3 = p =>  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
   const L_v2 = p =>  w0/(2*Math.sqrt(p))
 

@@ -14,9 +14,18 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles,createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {pink} from '@material-ui/core/colors'
 
 const drawerWidth = 0;
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: pink[400]
+    }
+  },
+});
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,7 +101,7 @@ function Layout(props) {
   // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
@@ -104,7 +113,7 @@ function Layout(props) {
       <Box>
         {props.children}
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 }
 

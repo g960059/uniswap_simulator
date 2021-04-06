@@ -3,6 +3,7 @@ import {Box, Paper, Slider, Typography, Tooltip, TextField, InputAdornment, Form
 import {FiberManualRecord} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
@@ -38,7 +39,7 @@ export default function Simulator() {
   const w_hold = (p)=> y0 + p * x0
   const getILv3 = (p)=>(w_v3(p) - w_hold(p))/w_hold(p) * 100
   const getILv2 = (p)=>(w_v2(p) - w_hold(p))/w_hold(p) * 100
-  const px = arange(RangeMin, RangeMax, Number((p0*0.01).toPrecision(1)))
+  const px = arange(RangeMin, RangeMax,p0*0.01)
   const ILv3_trace = px.map(d=>{return {x:d,y: getILv3(d)}})
   const ILv2_trace = px.map(d=>{return {x:d,y: getILv2(d)}})
   const w_v3_trace = px.map(d=>{return {x:d,y: w_v3(d)}})
@@ -140,53 +141,71 @@ export default function Simulator() {
   
   return (
     <Box>
-      <Paper sx={{p:2,m:.8,mt:2, pb:1}}>
-        <Typography gutterBottom sx={{pb:1}}>
-          Liquidity Deposit Value
-        </Typography>
-        <FormControl>
-          <OutlinedInput
-            id="deposit_valuet"
-            value={w0}
-            type = 'number'
-            onChange={e=>{setW0(Number(e.target.value))}}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-        </FormControl>
-        <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3}}>
-          Select ETH price range
-        </Typography>
-        <Slider
-          value={price}
-          onChange={(e,newPrice)=>{setPrice(newPrice as number[])}}
-          aria-labelledby="range-slider"
-          valueLabelDisplay = 'on'
-          marks={[{value: 1820, label: 'current price: $1820'}]}
-          components = {{ValueLabel: ({children, value})=><Tooltip enterTouchDelay={0} placement="top" open={true} title={"$"+value}>{children}</Tooltip>}}
-          min= {RangeMin}
-          max= {RangeMax}
-        />
-        <Divider sx={{my:1}} />
-        <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
-          <Grid item>
-            <Box>
-              <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
-              <Typography variant='caption'>Capital Required</Typography>
-              <Typography variant='h5' style={{color:green}}>${w0}</Typography>
-              <Typography variant='caption'>Fees per $ vs. V2</Typography>
-              <Typography variant='h5' style={{color:green}}>{Effeciancy.toPrecision(3)}x</Typography>
-            </Box>
-          </Grid>
-          <Grid item>
-            <Box>
-              <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
-              <Typography variant='caption'>Capital Required</Typography>
-              <Typography variant='h5'>${Math.round(w0 * Effeciancy)}</Typography>
-            </Box>
-          </Grid>
+      <Grid container justifyContent='center' sx={{pt:.5}}>
+        <Grid item xs={12} sm={6} md={5}>
+          <Paper sx={{p:2,m:.8,mt:1, pb:1}}>
+            <Typography gutterBottom sx={{pb:1}}>
+              Liquidity Deposit Value
+            </Typography>
+            <FormControl>
+              <OutlinedInput
+                id="deposit_valuet"
+                value={w0}
+                type = 'number'
+                onChange={e=>{setW0(Number(e.target.value))}}
+                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              />
+            </FormControl>
+            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3}}>
+              Select ETH price range
+            </Typography>
+            <Slider
+              value={price}
+              onChange={(e,newPrice)=>{setPrice(newPrice as number[])}}
+              sx = {{
+                '& .MuiSlider-mark': {
+                  background: "gray",
+                  width: "2px",
+                  height: "20px",
+                  top: "10px",
+                }
+              }}
+              aria-labelledby="range-slider"
+              valueLabelDisplay = 'on'
+              marks={[{value: 1820, label: 'current price: $1820'}]}
+              components = {{
+                // ValueLabel: ({children, value})=><Tooltip enterTouchDelay={0} placement="top" open={true} title={"$"+value}>{children}</Tooltip>,
+              }}
+              min= {RangeMin}
+              max= {RangeMax}
+            />
+          </Paper>
         </Grid>
-      </Paper>
-      <Paper sx={{p:.5,m:.8,mt:1}}>
+        <Grid item  xs={12} sm={6} md={5}>
+          <Paper sx={{p:2,m:.8,mt:1, py:1}}>
+            <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
+              <Grid item>
+                <Box >
+                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
+                  <Typography variant='caption'>Capital Required</Typography>
+                  <Typography variant='h5' style={{color:green}}>${w0}</Typography>
+                  <Typography variant='caption'>Fees per $ vs. V2</Typography>
+                  <Typography variant='h5' style={{color:green}}>{Effeciancy.toPrecision(3)}x</Typography>
+                </Box>
+              </Grid>
+              <Grid item>
+                <Box>
+                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
+                  <Typography variant='caption'>Capital Required</Typography>
+                  <Typography variant='h5'>${Math.round(w0 * Effeciancy)}</Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
+
+      <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
         <Box>
           <Chart 
             type="line" 
@@ -195,7 +214,7 @@ export default function Simulator() {
           />
         </Box>
       </Paper>
-      <Paper sx={{p:.5,m:.8,mt:1}}>
+      <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
         <Box>
           <Chart 
             type="line" 

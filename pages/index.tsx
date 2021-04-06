@@ -204,25 +204,30 @@ export default function Simulator() {
           </Paper>
         </Grid>
       </Grid>
-
-      <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
-        <Box>
-          <Chart 
-            type="line" 
-            options={options1} 
-            series={[{name:'Uniswap v2', data:ILv2_trace},{name:'Uniswap v3' ,data:ILv3_trace}]} 
-          />
-        </Box>
-      </Paper>
-      <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
-        <Box>
-          <Chart 
-            type="line" 
-            options={options2} 
-            series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}]} 
-          />
-        </Box>
-      </Paper>
+      <Grid container justifyContent='center'>
+        <Grid item xs={12} sm={9} md={6}>
+          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+            <Box>
+              <Chart 
+                type="line" 
+                options={options1} 
+                series={[{name:'Uniswap v2', data:ILv2_trace},{name:'Uniswap v3' ,data:ILv3_trace}]} 
+              />
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={9} md={6}>
+          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+            <Box>
+              <Chart 
+                type="line" 
+                options={options2} 
+                series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}]} 
+              />
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

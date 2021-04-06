@@ -20,23 +20,27 @@ export default function Simulator() {
   const Pa = price[0]
   const Pb = price[1]
   const RangeMax = p0*2.5
-  const RangeMin = p0/5
-  const y0 = w0/2
-  const x0 = y0/p0
-  const L = Math.sqrt((w0/2)**2/p0)
-  const w0_concentrated = L*(2*Math.sqrt(p0) - Math.sqrt(Pa) - p0/Math.sqrt(Pb))
-  const Effeciancy = w0 /w0_concentrated
+  const RangeMin = p0/3
+  const get_y = (w, p) => w * (1-Math.sqrt(Pa/p))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb))
+  const get_x = (w, p) => w * (1-Math.sqrt(p/Pb))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb)) / p
+  const y0 = get_y(w0, p0)
+  const x0 = get_x(w0, p0)
+  // console.log(y0 + x0 * p0)
+  const L_v3 = p =>  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
+  const L_v2 = p =>  w0/(2*Math.sqrt(p))
+
+  const Effeciancy = p => 1/(1-0.5 * Math.sqrt(Pa/p)- 0.5 * Math.sqrt(p/Pb))
   const w_v3 = (p) =>{
     if(p<= Pa){
-      return Effeciancy * L * p * (1/Math.sqrt(Pa) - 1/Math.sqrt(Pb))
+      return  L_v3(p0) * p * (1/Math.sqrt(Pa) - 1/Math.sqrt(Pb))
     }else if(p >= Pb){
-      return  Effeciancy * L * (Math.sqrt(Pb) - Math.sqrt(Pa))
+      return  L_v3(p0) * (Math.sqrt(Pb) - Math.sqrt(Pa))
     }else{
-      return Effeciancy *  L*(2*Math.sqrt(p) - Math.sqrt(Pa) - p/Math.sqrt(Pb))
+      return  L_v3(p0) *(2*Math.sqrt(p) - Math.sqrt(Pa) - p/Math.sqrt(Pb))
     }
   }
-  const w_v2 = (p) => L*2*Math.sqrt(p)
-  const w_hold = (p)=> y0 + p * x0
+  const w_v2 = (p) => L_v2(p0) *2*Math.sqrt(p)
+  const w_hold = (p)=> w0/2 + p * w0/2/p0
   const getILv3 = (p)=>(w_v3(p) - w_hold(p))/w_hold(p) * 100
   const getILv2 = (p)=>(w_v2(p) - w_hold(p))/w_hold(p) * 100
   const px = arange(RangeMin, RangeMax,p0*0.01)
@@ -206,14 +210,14 @@ export default function Simulator() {
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5' style={{color:green}}>${w0}</Typography>
                   <Typography variant='caption'>Fees per $ vs. V2</Typography>
-                  <Typography variant='h5' style={{color:green}}>{Effeciancy.toPrecision(3)}x</Typography>
+                  <Typography variant='h5' style={{color:green}}>{Effeciancy(p0).toPrecision(3)}x</Typography>
                 </Box>
               </Grid>
               <Grid item>
                 <Box>
                   <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
-                  <Typography variant='h5'>${Math.round(w0 * Effeciancy)}</Typography>
+                  <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0))}</Typography>
                 </Box>
               </Grid>
             </Grid>

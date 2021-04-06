@@ -20,7 +20,7 @@ export default function Simulator() {
   const Pa = price[0]
   const Pb = price[1]
   const RangeMax = p0*2.5
-  const RangeMin = p0/3
+  const RangeMin = p0/5
   const get_y = (w, p) => w * (1-Math.sqrt(Pa/p))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb))
   const get_x = (w, p) => w * (1-Math.sqrt(p/Pb))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb)) / p
   const y0 = get_y(w0, p0)

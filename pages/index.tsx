@@ -89,6 +89,14 @@ export default function Simulator() {
       labels: {
         formatter: v => Math.round(v)
       }
+    },
+    tooltip: {
+      x:{
+        formatter: d => "ETH/USD $"+ Math.round(d)
+      },
+      y:{
+        formatter: d => "IL " + d.toFixed(1)+ "%"
+      }
     }
   };
   const options2 = {
@@ -134,6 +142,14 @@ export default function Simulator() {
       forceNiceScale: true,
       labels: {
         formatter: v => Math.round(v)
+      }
+    },
+    tooltip: {
+      x:{
+        formatter: d => "ETH/USD $"+ Math.round(d)
+      },
+      y:{
+        formatter: d => "$" + Math.round(d)
       }
     }
   };

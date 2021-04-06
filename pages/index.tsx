@@ -28,7 +28,7 @@ export default function Simulator() {
   const Effeciancy = w0 /w0_concentrated
   const w_v3 = (p) =>{
     if(p<= Pa){
-      return Effeciancy * L * (Math.sqrt(Pa) - Pa/Math.sqrt(Pb))
+      return Effeciancy * L * p * (1/Math.sqrt(Pa) - 1/Math.sqrt(Pb))
     }else if(p >= Pb){
       return  Effeciancy * L * (Math.sqrt(Pb) - Math.sqrt(Pa))
     }else{

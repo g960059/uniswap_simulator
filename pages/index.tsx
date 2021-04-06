@@ -41,14 +41,21 @@ export default function Simulator() {
   }
   const w_v2 = (p) => L_v2(p0) *2*Math.sqrt(p)
   const w_hold = (p)=> w0/2 + p * w0/2/p0
+  const w_hold_imbalance = (p) => y0 + p * x0
   const getILv3 = (p)=>(w_v3(p) - w_hold(p))/w_hold(p) * 100
   const getILv2 = (p)=>(w_v2(p) - w_hold(p))/w_hold(p) * 100
+  const getILv3_imbalance = (p)=>(w_v3(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
+  const getILv2_imbalance = (p)=>(w_v2(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
   const px = arange(RangeMin, RangeMax,p0*0.01)
   const ILv3_trace = px.map(d=>{return {x:d,y: getILv3(d)}})
   const ILv2_trace = px.map(d=>{return {x:d,y: getILv2(d)}})
+  const ILv3_imbalance_trace = px.map(d=>{return {x:d,y: getILv3_imbalance(d)}})
+  const ILv2_imbalance_trace = px.map(d=>{return {x:d,y: getILv2_imbalance(d)}})
   const w_v3_trace = px.map(d=>{return {x:d,y: w_v3(d)}})
   const w_v2_trace = px.map(d=>{return {x:d,y: w_v2(d)}})
   const w_hold_trace = px.map(d=>{return {x:d,y: w_hold(d)}})
+  const w_hold_imbalance_trace = px.map(d=>{return {x:d,y: w_hold_imbalance(d)}})
+
   const options1 = {
     chart: {
       zoom: {enabled: false},
@@ -62,6 +69,9 @@ export default function Simulator() {
     title: {
       text: 'Impermanent Loss',
       align: 'left'
+    },
+    subtitle: {
+      text: 'vs. 50:50 HODL (' + (w0/2/p0).toPrecision(3) + ' ETH, ' + Math.round(w0/2) + ' USD)'
     },
     annotations:{
       xaxis: [
@@ -157,7 +167,63 @@ export default function Simulator() {
       }
     }
   };
-
+  const options3 = {
+    chart: {
+      zoom: {enabled: false},
+      animations: {
+        easing: "linear",
+        dynamicAnimation: {
+          speed: 500
+        }
+      }
+    },
+    title: {
+      text: 'Impermanent Loss',
+      align: 'left'
+    },
+    subtitle: {
+      text: 'vs. Imbalanced HODL (' + x0.toPrecision(3) + 'ETH, ' + Math.round(y0) + ' USD)'
+    },
+    annotations:{
+      xaxis: [
+        {
+          x: Pa,
+          x2: Pb,
+          fillColor: '#B3F7CA',
+          label: {
+            textAnchor: 'start',
+            position: 'top',
+            orientation: 'horizontal',
+            offsetX: 5,
+            offsetY: 7,
+            text: 'Liquidity Range in V3'
+          }
+        }
+      ],
+    },
+    stroke:{width:2},
+    xaxis: {
+      title: {text: "ETH/USD"},
+      tickAmount: 5,
+      type: 'numeric',
+    },
+    yaxis: {
+      title: { text: "Impermanent Loss (%)" },
+      tickAmount: 5,
+      forceNiceScale: true,
+      labels: {
+        formatter: v => Math.round(v)
+      }
+    },
+    tooltip: {
+      x:{
+        formatter: d => "ETH/USD $"+ Math.round(d)
+      },
+      y:{
+        formatter: d => "IL " + d.toFixed(1)+ "%"
+      }
+    }
+  };
   
   return (
     <Box>
@@ -230,6 +296,17 @@ export default function Simulator() {
             <Box>
               <Chart 
                 type="line" 
+                options={options2} 
+                series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}, {name:'HODL Imbalanced', data:w_hold_imbalance_trace}]} 
+              />
+            </Box>
+          </Paper>
+        </Grid>        
+        <Grid item xs={12} sm={9} md={6}>
+          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+            <Box>
+              <Chart 
+                type="line" 
                 options={options1} 
                 series={[{name:'Uniswap v2', data:ILv2_trace},{name:'Uniswap v3' ,data:ILv3_trace}]} 
               />
@@ -241,8 +318,8 @@ export default function Simulator() {
             <Box>
               <Chart 
                 type="line" 
-                options={options2} 
-                series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}]} 
+                options={options3} 
+                series={[{name:'Uniswap v2', data:ILv2_imbalance_trace},{name:'Uniswap v3' ,data:ILv3_imbalance_trace}]} 
               />
             </Box>
           </Paper>

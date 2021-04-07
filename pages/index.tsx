@@ -34,7 +34,7 @@ export default function Simulator() {
     }else if(p >= Pb){
       return 0
     }else{
-      return Math.round((1-Math.sqrt(p/Pb))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb)) * 100)
+      return (1-Math.sqrt(p/Pb))/(2-Math.sqrt(Pa/p)-Math.sqrt(p/Pb)) * 100
     }
   }
   const y0 = get_y(w0, p0)
@@ -84,6 +84,8 @@ export default function Simulator() {
   const x_ratio_v3_trace = px.map(d =>{ return {x:d,y:get_x_value_ratio_v3(d)}})
   const x_ratio_v2_trace = px.map(d =>{return {x:d, y: 50}})
   const x_ratio_hold_trace = px.map(d => {return {x:d, y: d*w0/2/p0/w_hold(d)*100}})
+  const x_ratio_hold_imbalance_trace = px.map(d => {return {x:d, y: d*x0/w_hold_imbalance(d)*100}})
+
 
   const options1 = {
     chart: {
@@ -115,6 +117,10 @@ export default function Simulator() {
             offsetX: 5,
             offsetY: 7,
           }
+        },
+        {
+          x:p0,
+          borderColor: 'gray',
         }
       ],
     },
@@ -168,6 +174,10 @@ export default function Simulator() {
             offsetX: 5,
             offsetY: 7,
           }
+        },
+        {
+          x:p0,
+          borderColor: 'gray',
         }
       ],
     },
@@ -224,6 +234,10 @@ export default function Simulator() {
             offsetX: 5,
             offsetY: 7,
           }
+        },
+        {
+          x:p0,
+          borderColor: 'gray',
         }
       ],
     },
@@ -262,7 +276,7 @@ export default function Simulator() {
       }
     },
     title: {
-      text: 'ETH ratio in total deposit value',
+      text: 'ETH ratio in total value',
       align: 'left'
     },
     annotations:{
@@ -278,6 +292,10 @@ export default function Simulator() {
             offsetX: 5,
             offsetY: 7,
           }
+        },
+        {
+          x:p0,
+          borderColor: 'gray',
         }
       ],
     },
@@ -301,7 +319,7 @@ export default function Simulator() {
         formatter: d => "ETH/USD $"+ Math.round(d)
       },
       y:{
-        formatter: d => "IL " + d?.toFixed(1)+ "%"
+        formatter: d => d?.toFixed(1)+ "%"
       }
     }
   };
@@ -410,7 +428,7 @@ export default function Simulator() {
                 <Chart 
                   type="line" 
                   options={options2} 
-                  series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}, {name:'Imbalanced HODL', data:w_hold_imbalance_trace}]} 
+                  series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'50:50 HODL', data:w_hold_trace}, {name:'Imbalanced HODL', data:w_hold_imbalance_trace}]} 
                 />
               </Box>
             </Paper>
@@ -421,7 +439,7 @@ export default function Simulator() {
                 <Chart 
                   type="line" 
                   options={options4} 
-                  series={[{name:'Uniswap v2', data:x_ratio_v2_trace},{name:'Uniswap v3' ,data:x_ratio_v3_trace},{name:'HODL', data:x_ratio_hold_trace}]} 
+                  series={[{name:'Uniswap v2', data:x_ratio_v2_trace},{name:'Uniswap v3' ,data:x_ratio_v3_trace},{name:'50:50 HODL', data:x_ratio_hold_trace}, {name: 'Imbalanced HODL', data:x_ratio_hold_imbalance_trace}]} 
                 />
               </Box>
             </Paper>

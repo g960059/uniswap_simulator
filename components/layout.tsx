@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {AppBar, Box} from '@material-ui/core';
+import {AppBar, Box, Hidden} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
+import {GitHub, Twitter} from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
@@ -117,9 +116,17 @@ function Layout(props) {
       <CssBaseline />
       <AppBar position="static" color = {isUpSm ? 'transparent': 'primary'} elevation={0} className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular"}}>
+          <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular" ,flexGrow: 1 }}>
             Uniswap v3 Simulator
           </Typography>
+          <Hidden smDown>
+            <IconButton onClick={()=>{window.open('https://twitter.com/osushi0x0')}}>
+              <Twitter/>
+            </IconButton>
+            <IconButton onClick={()=>{window.open('https://github.com/g960059/uniswap_simulator')}}>
+              <GitHub/>
+            </IconButton>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <Box className={classes.background}></Box>

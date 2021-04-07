@@ -1,17 +1,9 @@
-import * as React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import React from 'react';
 import {AppBar, Box, Hidden} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import {GitHub, Twitter} from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -34,6 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
+    },
+    appBarRoot: {
+      [theme.breakpoints.up('sm')]: {
+        backgroundColor: 'transparent',
+        color: 'inherit'
+      }
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -73,48 +71,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Layout(props) {
   const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isUpSm = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
-  // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
       <CssBaseline />
-      <AppBar position="static" color = {isUpSm ? 'transparent': 'primary'} elevation={0} className={classes.appBar}>
+      <AppBar position="static" elevation={0} className={classes.appBar} classes={{root:classes.appBarRoot}}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular" ,flexGrow: 1 }}>
             Uniswap v3 Simulator

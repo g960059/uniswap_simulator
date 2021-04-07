@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Paper, Slider, Typography, Tooltip, TextField, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
+import {Box, Paper, Slider, Typography, Tooltip, InputLabel,Input, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
 import {FiberManualRecord} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
@@ -13,8 +13,8 @@ const green = "#27AE60"
 
 export default function Simulator() {
   const [price, setPrice] = useState([1200, 2800]);
+  const [p0, setP0] = useState(1820);
   const [w0, setW0] = useState(15000);
-  const p0 = 1820
   const Pa = price[0]
   const Pb = price[1]
   const RangeMax = p0*2.5
@@ -247,20 +247,36 @@ export default function Simulator() {
     <Box>
       <Grid container justifyContent='center'>
         <Grid item xs={12} md={5} lg={4} sx={{pt:.5}} justifyContent='center'>
-          <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
-            <Typography gutterBottom sx={{pb:1, fontWeight: 'bold'}}>
-              Liquidity Deposit Value
-            </Typography>
-            <FormControl>
-              <OutlinedInput
-                id="deposit_valuet"
-                value={w0}
-                type = 'number'
-                onChange={e=>{setW0(Number(e.target.value))}}
-                startAdornment={<InputAdornment position="start">$</InputAdornment>}
-              />
-            </FormControl>
-            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3, fontWeight: 'bold'}}>
+          <Paper sx={{p:2,m:.8,mt:1,pt:3, pb:1.5}}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <FormControl variant="outlined" fullWidth >
+                  <InputLabel htmlFor="deposit_valuet">Liquidity Deposit Value</InputLabel>
+                  <OutlinedInput
+                    id="deposit_valuet"
+                    value={w0}
+                    type = 'number'
+                    onChange={e=>{setW0(Number(e.target.value))}}
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    label = 'Liquidity Deposit Value'
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl variant="outlined" fullWidth >
+                  <InputLabel htmlFor="current_eth_price">Current ETH price</InputLabel>
+                  <OutlinedInput
+                    id="current_eth_price"
+                    value={p0}
+                    type = 'number'
+                    onChange={e=>{setP0(Number(e.target.value))}}
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    label = 'Current ETH price'
+                  />
+                </FormControl>                 
+              </Grid>
+            </Grid>
+            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3}}>
               Select ETH price range
             </Typography>
             <Slider
@@ -276,7 +292,7 @@ export default function Simulator() {
               }}
               aria-labelledby="range-slider"
               valueLabelDisplay = 'on'
-              marks={[{value: 1820, label: 'current price: $1820'}]}
+              marks={[{value: p0, label: 'current price: $'+p0}]}
               components = {{
                 // ValueLabel: ({children, value})=><Tooltip enterTouchDelay={0} placement="top" open={true} title={"$"+value}>{children}</Tooltip>,
               }}

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {Box, Paper, Slider, Typography, Tooltip, InputLabel,Input, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
-import {FiberManualRecord} from '@material-ui/icons';
+import React, {useState, useEffect} from 'react';
+import {Box, Paper, Slider, Typography, IconButton, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
+import {FiberManualRecord, Refresh} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
+import { CoinGeckoAPI } from "@coingecko/cg-api-ts";
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export const background = '#f3f3f3';
@@ -10,6 +11,7 @@ const defaultMargin = { top: 40, right: 30, bottom: 50, left: 40 };
 const width = 480
 const height = 480
 const green = "#27AE60"
+
 
 export default function Simulator() {
   const [price, setPrice] = useState([1200, 2800]);
@@ -243,6 +245,18 @@ export default function Simulator() {
     }
   };
   
+  const updatePrice = () => {
+    const cg = new CoinGeckoAPI(window.fetch.bind(window));
+    cg.getSimplePrice(['ethereum'], ['usd']).then(({data})=>{
+      const currentPrice = data?.ethereum?.usd
+      setP0(Math.round(currentPrice))
+      setPrice([Math.round(currentPrice/1.5), Math.round(currentPrice*1.5)])
+    })
+  }
+  useEffect(() => {
+    updatePrice()
+  }, []);
+
   return (
     <Box>
       <Grid container justifyContent='center'>
@@ -267,7 +281,9 @@ export default function Simulator() {
                 <FormControl variant="outlined" fullWidth >
                   <Typography  variant='subtitle1' gutterBottom >
                     Current ETH price
-                  </Typography>                  
+                    <IconButton size='small' edge='end' onClick={()=>{updatePrice()}}><Refresh/></IconButton>
+                  </Typography>       
+                  
                   <OutlinedInput
                     id="current_eth_price"
                     value={p0}

@@ -32,10 +32,16 @@ export default function Simulator() {
   const y0 = get_y(w0, p0)
   const x0 = get_x(w0, p0)
   const get_deposit_ratio = ()=>{
-    if(x0 * p0 >= y0){
-      return (x0*p0/y0).toPrecision(3) + ' : 1.00'
+    if (y0 == 0){
+      return '100 : 0'
+    }else if(x0 == 0){
+      return '0 : 100'
+    }else if(x0 * p0 >= y0){
+      const r = Math.round((x0*p0/w0)*100)
+      return  r + ' : ' + (100 - r)
     }else{
-      return '1.00 : '+(y0/x0/p0).toPrecision(3)
+      const r = Math.round((y0/w0)*100)
+      return (100-r) + ' : ' + r
     }
   }
   const L_v3 = p =>  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
@@ -296,7 +302,7 @@ export default function Simulator() {
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0))}</Typography>
                   <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
-                  <Typography variant='h5'>1.00 : 1.00</Typography>
+                  <Typography variant='h5'>50 : 50</Typography>
                 </Box>
               </Grid>
             </Grid>

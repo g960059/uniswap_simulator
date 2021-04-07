@@ -247,36 +247,38 @@ export default function Simulator() {
     <Box>
       <Grid container justifyContent='center'>
         <Grid item xs={12} md={5} lg={4} sx={{pt:.5}} justifyContent='center'>
-          <Paper sx={{p:2,m:.8,mt:1,pt:3, pb:1.5}}>
+          <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth >
-                  <InputLabel htmlFor="deposit_valuet">Liquidity Deposit Value</InputLabel>
+                  <Typography  variant='subtitle1' gutterBottom >
+                  Liquidity Deposit Value
+                  </Typography>
                   <OutlinedInput
                     id="deposit_valuet"
                     value={w0}
                     type = 'number'
                     onChange={e=>{setW0(Number(e.target.value))}}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    label = 'Liquidity Deposit Value'
                   />
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth >
-                  <InputLabel htmlFor="current_eth_price">Current ETH price</InputLabel>
+                  <Typography  variant='subtitle1' gutterBottom >
+                    Current ETH price
+                  </Typography>                  
                   <OutlinedInput
                     id="current_eth_price"
                     value={p0}
                     type = 'number'
                     onChange={e=>{setP0(Number(e.target.value))}}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    label = 'Current ETH price'
                   />
                 </FormControl>                 
               </Grid>
             </Grid>
-            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3}}>
+            <Typography id="range-slider" variant='subtitle1' gutterBottom sx={{pb:6, pt:3}}>
               Select ETH price range
             </Typography>
             <Slider

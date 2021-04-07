@@ -4,7 +4,7 @@ import {FiberManualRecord, Refresh} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
 import { CoinGeckoAPI } from "@coingecko/cg-api-ts";
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles,Theme } from '@material-ui/core/styles';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 

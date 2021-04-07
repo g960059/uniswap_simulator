@@ -234,8 +234,8 @@ export default function Simulator() {
     <Box>
       <Grid container justifyContent='center' >
         <Grid item xs={12} md={5} sx={{pt:.5}}>
-          <Paper sx={{p:2,m:.8,mt:1, pb:1}}>
-            <Typography gutterBottom sx={{pb:1}}>
+          <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
+            <Typography gutterBottom sx={{pb:1, fontWeight: 'bold'}}>
               Liquidity Deposit Value
             </Typography>
             <FormControl>
@@ -247,7 +247,7 @@ export default function Simulator() {
                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
               />
             </FormControl>
-            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3}}>
+            <Typography id="range-slider" gutterBottom sx={{pb:6, pt:3, fontWeight: 'bold'}}>
               Select ETH price range
             </Typography>
             <Slider

@@ -59,6 +59,20 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       // padding: theme.spacing(3),
     },
+    background: {
+      position: "fixed",
+      zIndex: -1,
+      top: "0px",
+      left: "0px",
+      width: "100%",
+      overflow: "hidden",
+      transform: "translate3d(0px, 0px, 0px)",
+      height: "-webkit-fill-available",
+      background: "radial-gradient(50% 50% at 50% 50%, rgb(255, 0, 122) 0%, rgb(247, 248, 250) 100%)",
+      opacity: 0.15,
+      userSelect: "none",
+      pointerEvents: "none"
+    }
   }),
 );
 
@@ -110,6 +124,7 @@ function Layout(props) {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Box className={classes.background}></Box>
       <Box>
         {props.children}
       </Box>

@@ -3,9 +3,7 @@ import {Box, Paper, Slider, Typography, Tooltip, TextField, InputAdornment, Form
 import {FiberManualRecord} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-
 
 export const background = '#f3f3f3';
 const defaultMargin = { top: 40, right: 30, bottom: 50, left: 40 };
@@ -234,8 +232,8 @@ export default function Simulator() {
   
   return (
     <Box>
-      <Grid container justifyContent='center' sx={{pt:.5}}>
-        <Grid item xs={12} sm={6} md={5}>
+      <Grid container justifyContent='center' >
+        <Grid item xs={12} md={5} sx={{pt:.5}}>
           <Paper sx={{p:2,m:.8,mt:1, pb:1}}>
             <Typography gutterBottom sx={{pb:1}}>
               Liquidity Deposit Value
@@ -260,7 +258,7 @@ export default function Simulator() {
                   background: "gray",
                   width: "2px",
                   height: "20px",
-                  top: "10px",
+                  marginTop: "-9px"
                 }
               }}
               aria-labelledby="range-slider"
@@ -272,10 +270,7 @@ export default function Simulator() {
               min= {RangeMin}
               max= {RangeMax}
             />
-          </Paper>
-        </Grid>
-        <Grid item  xs={12} sm={6} md={5}>
-          <Paper sx={{p:2,m:.8,mt:1, py:1}}>
+            <Divider sx={{py: 0.5}}/>
             <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
               <Grid item>
                 <Box >
@@ -296,40 +291,40 @@ export default function Simulator() {
             </Grid>
           </Paper>
         </Grid>
-      </Grid>
-      <Grid container justifyContent='center'>
-        <Grid item xs={12} sm={9} md={6}>
-          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
-            <Box>
-              <Chart 
-                type="line" 
-                options={options2} 
-                series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}, {name:'HODL Imbalanced', data:w_hold_imbalance_trace}]} 
-              />
-            </Box>
-          </Paper>
-        </Grid>        
-        <Grid item xs={12} sm={9} md={6}>
-          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
-            <Box>
-              <Chart 
-                type="line" 
-                options={options1} 
-                series={[{name:'Uniswap v2', data:ILv2_trace},{name:'Uniswap v3' ,data:ILv3_trace}]} 
-              />
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={9} md={6}>
-          <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
-            <Box>
-              <Chart 
-                type="line" 
-                options={options3} 
-                series={[{name:'Uniswap v2', data:ILv2_imbalance_trace},{name:'Uniswap v3' ,data:ILv3_imbalance_trace}]} 
-              />
-            </Box>
-          </Paper>
+        <Grid item xs={12} md={7} container justifyContent='center'>
+          <Grid item xs={12} lg={10}>
+            <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+              <Box>
+                <Chart 
+                  type="line" 
+                  options={options2} 
+                  series={[{name:'Uniswap v2', data:w_v2_trace},{name:'Uniswap v3' ,data:w_v3_trace}, {name:'HODL', data:w_hold_trace}, {name:'HODL Imbalanced', data:w_hold_imbalance_trace}]} 
+                />
+              </Box>
+            </Paper>
+          </Grid>        
+          <Grid item xs={12} lg={10}>
+            <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+              <Box>
+                <Chart 
+                  type="line" 
+                  options={options1} 
+                  series={[{name:'Uniswap v2', data:ILv2_trace},{name:'Uniswap v3' ,data:ILv3_trace}]} 
+                />
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} lg={10}>
+            <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+              <Box>
+                <Chart 
+                  type="line" 
+                  options={options3} 
+                  series={[{name:'Uniswap v2', data:ILv2_imbalance_trace},{name:'Uniswap v3' ,data:ILv3_imbalance_trace}]} 
+                />
+              </Box>
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
     </Box>

@@ -31,6 +31,13 @@ export default function Simulator() {
   const get_x = (w, p) => (w-get_y(w,p)) / p
   const y0 = get_y(w0, p0)
   const x0 = get_x(w0, p0)
+  const get_deposit_ratio = ()=>{
+    if(x0 * p0 >= y0){
+      return (x0*p0/y0).toPrecision(3) + ' : 1.00'
+    }else{
+      return '1.00 : '+(y0/x0/p0).toPrecision(3)
+    }
+  }
   const L_v3 = p =>  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
   const L_v2 = p =>  w0/(2*Math.sqrt(p))
 
@@ -271,21 +278,25 @@ export default function Simulator() {
               max= {RangeMax}
             />
             <Divider sx={{py: 0.5}}/>
-            <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
-              <Grid item>
-                <Box >
+            <Grid container justifyContent="center" alignItems="flex-start">
+              <Grid item xs={6}>
+                <Box px={1}>
                   <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5' style={{color:green}}>${w0}</Typography>
+                  <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
+                  <Typography variant='h5' style={{color:green}}>{get_deposit_ratio()}</Typography>                  
                   <Typography variant='caption'>Fees per $ vs. V2</Typography>
                   <Typography variant='h5' style={{color:green}}>{Effeciancy(p0).toPrecision(3)}x</Typography>
                 </Box>
               </Grid>
-              <Grid item>
-                <Box>
+              <Grid item xs={6}>
+                <Box px={1}>
                   <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0))}</Typography>
+                  <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
+                  <Typography variant='h5'>1.00 : 1.00</Typography>
                 </Box>
               </Grid>
             </Grid>

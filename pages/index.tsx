@@ -4,13 +4,29 @@ import {FiberManualRecord, Refresh} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
 import { CoinGeckoAPI } from "@coingecko/cg-api-ts";
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export const background = '#f3f3f3';
 const green = "#27AE60"
 
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    chartContainerBox: {
+      [theme.breakpoints.up('sm')]: {
+        maxHeight: `calc(100vh - 78px)`,
+        overflow: 'hidden', 
+        overflowY: 'scroll',
+        marginTop: '8px'
+      }
+    },
+  }),
+);
+
 export default function Simulator() {
+  const classes = useStyles()
   const [price, setPrice] = useState([1200, 2800]);
   const [p0, setP0] = useState(1820);
   const [w0, setW0] = useState(15000);
@@ -421,9 +437,9 @@ export default function Simulator() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={7} container justifyContent='center'>
+        <Grid item xs={12} md={7} container justifyContent='center' className = {classes.chartContainerBox}>
           <Grid item xs={12} lg={11}>
-            <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
+            <Paper sx={{p:.5,py:1,m:.8,mt:0}}>
               <Box>
                 <Chart 
                   type="line" 

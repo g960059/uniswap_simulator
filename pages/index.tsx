@@ -246,8 +246,8 @@ export default function Simulator() {
   return (
     <Box>
       <Grid container justifyContent='center'>
-        <Grid item xs={12} md={5} lg={4}  justifyContent='center'>
-          <Paper sx={{p:2,m:.8, pb:1.5}}>
+        <Grid item xs={12} md={5} lg={4} justifyContent='center'>
+          <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth >

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Image from 'next/image'
 import {AppBar, Box} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -72,6 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: 0.15,
       userSelect: "none",
       pointerEvents: "none"
+    },
+    headerIcon:{
+      width: '32px',
+      height: '32px'
     }
   }),
 );
@@ -117,7 +122,7 @@ function Layout(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" color = 'transparent' elevation={0} className={classes.appBar}>
+      <AppBar position="static"  elevation={0} className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular"}}>
             Uniswap v3 Simulator

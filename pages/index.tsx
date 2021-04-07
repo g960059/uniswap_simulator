@@ -232,8 +232,8 @@ export default function Simulator() {
   
   return (
     <Box>
-      <Grid container justifyContent='center' >
-        <Grid item xs={12} md={5} sx={{pt:.5}}>
+      <Grid container justifyContent='center'>
+        <Grid item xs={12} md={5} lg={4} sx={{pt:.5}} justifyContent='center'>
           <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
             <Typography gutterBottom sx={{pb:1, fontWeight: 'bold'}}>
               Liquidity Deposit Value
@@ -292,7 +292,7 @@ export default function Simulator() {
           </Paper>
         </Grid>
         <Grid item xs={12} md={7} container justifyContent='center'>
-          <Grid item xs={12} lg={10}>
+          <Grid item xs={12} lg={11}>
             <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
               <Box>
                 <Chart 
@@ -303,7 +303,7 @@ export default function Simulator() {
               </Box>
             </Paper>
           </Grid>        
-          <Grid item xs={12} lg={10}>
+          <Grid item xs={12} lg={11}>
             <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
               <Box>
                 <Chart 
@@ -314,7 +314,7 @@ export default function Simulator() {
               </Box>
             </Paper>
           </Grid>
-          <Grid item xs={12} lg={10}>
+          <Grid item xs={12} lg={11}>
             <Paper sx={{p:.5,py:1,m:.8,mt:1}}>
               <Box>
                 <Chart 

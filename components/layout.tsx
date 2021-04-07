@@ -117,9 +117,9 @@ function Layout(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static" color = 'transparent' elevation={0} className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular"}}>
             Uniswap v3 Simulator
           </Typography>
         </Toolbar>

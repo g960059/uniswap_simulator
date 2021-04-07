@@ -246,8 +246,8 @@ export default function Simulator() {
   return (
     <Box>
       <Grid container justifyContent='center'>
-        <Grid item xs={12} md={5} lg={4} sx={{pt:.5}} justifyContent='center'>
-          <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
+        <Grid item xs={12} md={5} lg={4}  justifyContent='center'>
+          <Paper sx={{p:2,m:.8, pb:1.5}}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth >
@@ -305,7 +305,7 @@ export default function Simulator() {
             <Grid container justifyContent="center" alignItems="flex-start">
               <Grid item xs={6}>
                 <Box px={1}>
-                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
+                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', mt:2, mb:1.5}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5' style={{color:green}}>${w0}</Typography>
                   <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
@@ -316,7 +316,7 @@ export default function Simulator() {
               </Grid>
               <Grid item xs={6}>
                 <Box px={1}>
-                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', my:2}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
+                  <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', mt:2, mb:1.5}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
                   <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0))}</Typography>
                   <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>

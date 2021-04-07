@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Image from 'next/image'
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {AppBar, Box} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -12,21 +13,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme, createStyles,createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import {pink} from '@material-ui/core/colors'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 0;
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: pink[400]
-    }
-  },
-});
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,7 +74,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Layout(props) {
   const classes = useStyles();
+  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const isUpSm = useMediaQuery(theme.breakpoints.up('sm'));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -120,9 +113,9 @@ function Layout(props) {
   // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
-      <AppBar position="static"  elevation={0} className={classes.appBar}>
+      <AppBar position="static" color = {isUpSm ? 'transparent': 'primary'} elevation={0} className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{fontFamily: "GT Haptik Regular"}}>
             Uniswap v3 Simulator
@@ -133,7 +126,7 @@ function Layout(props) {
       <Box>
         {props.children}
       </Box>
-    </ThemeProvider>
+    </>
   );
 }
 

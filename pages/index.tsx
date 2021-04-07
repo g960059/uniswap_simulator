@@ -20,7 +20,7 @@ export default function Simulator() {
   const Pa = price[0]
   const Pb = price[1]
   const RangeMax = p0*2.5
-  const RangeMin = p0/5
+  const RangeMin = Number((p0/5).toPrecision(2))
   const get_y = (w, p) => {
     if(p <= Pa){
       return 0
@@ -66,7 +66,7 @@ export default function Simulator() {
   const getILv2 = (p)=>(w_v2(p) - w_hold(p))/w_hold(p) * 100
   const getILv3_imbalance = (p)=>(w_v3(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
   const getILv2_imbalance = (p)=>(w_v2(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
-  const px = arange(RangeMin, RangeMax,p0*0.01)
+  const px = arange(RangeMin, RangeMax, Number((p0*0.01).toPrecision(1)))
   const ILv3_trace = px.map(d=>{return {x:d,y: getILv3(d)}})
   const ILv2_trace = px.map(d=>{return {x:d,y: getILv2(d)}})
   const ILv3_imbalance_trace = px.map(d=>{return {x:d,y: getILv3_imbalance(d)}})
@@ -105,7 +105,6 @@ export default function Simulator() {
             orientation: 'horizontal',
             offsetX: 5,
             offsetY: 7,
-            text: 'Liquidity Range in V3'
           }
         }
       ],
@@ -159,7 +158,6 @@ export default function Simulator() {
             orientation: 'horizontal',
             offsetX: 5,
             offsetY: 7,
-            text: 'Liquidity Range in V3'
           }
         }
       ],
@@ -216,7 +214,6 @@ export default function Simulator() {
             orientation: 'horizontal',
             offsetX: 5,
             offsetY: 7,
-            text: 'Liquidity Range in V3'
           }
         }
       ],

@@ -372,13 +372,7 @@ export default function Simulator() {
                   <Typography  variant='subtitle1' gutterBottom >
                   Liquidity Deposit Value
                   </Typography>
-                  <OutlinedInput
-                    id="deposit_valuet"
-                    value={w0}
-                    type = 'number'
-                    onChange={e=>{setW0(Number(e.target.value))}}
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                  />
+                  <ReactiveInput value={w0} updateValue={v => {setW0(v)}} />
                 </FormControl>             
               </Grid>
               <Grid item xs={6}>

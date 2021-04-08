@@ -357,7 +357,7 @@ export default function Simulator() {
       setPrice([Math.round(currentPrice/1.5), Math.round(currentPrice*1.5)])
     })
   }
-  useEffect(() => {
+  useLayoutEffect(() => {
     updatePrice()
   }, []);
 

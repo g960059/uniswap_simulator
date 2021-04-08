@@ -80,7 +80,8 @@ export default function Simulator() {
   }
   const L_v2 = p =>  w0/(2*Math.sqrt(p))
 
-  const Effeciancy = p => 1/(1-0.5 * Math.sqrt(Pa/p)- 0.5 * Math.sqrt(p/Pb))
+  const Effeciancy = p => L_v3(p)/L_v2(p)
+  
   const w_v3 = (p) =>{
     if(p<= Pa){
       return  L_v3(p0) * p * (1/Math.sqrt(Pa) - 1/Math.sqrt(Pb))
@@ -110,7 +111,6 @@ export default function Simulator() {
   const x_ratio_v2_trace = px.map(d =>{return {x:d, y: 50}})
   const x_ratio_hold_trace = px.map(d => {return {x:d, y: d*w0/2/p0/w_hold(d)*100}})
   const x_ratio_hold_imbalance_trace = px.map(d => {return {x:d, y: d*x0/w_hold_imbalance(d)*100}})
-
 
   const options1 = {
     chart: {

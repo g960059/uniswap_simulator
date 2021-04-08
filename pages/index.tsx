@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {Box, Paper, Slider, Typography, IconButton, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
 import {FiberManualRecord, Refresh} from '@material-ui/icons';
 import arange from 'lodash/range'

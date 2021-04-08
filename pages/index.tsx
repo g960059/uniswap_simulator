@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { CoinGeckoAPI } from "@coingecko/cg-api-ts";
 import { makeStyles, createStyles,Theme } from '@material-ui/core/styles';
 import PriceRangeSlider from '../src/components/PriceRangeSlider'
+import ReactiveInput from '../src/components/ReactiveInput'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -378,7 +379,7 @@ export default function Simulator() {
                     onChange={e=>{setW0(Number(e.target.value))}}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                   />
-                </FormControl>
+                </FormControl>             
               </Grid>
               <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth >
@@ -386,14 +387,7 @@ export default function Simulator() {
                     Current ETH price
                     <IconButton size='small' edge='end' onClick={()=>{updatePrice()}}><Refresh/></IconButton>
                   </Typography>       
-                  
-                  <OutlinedInput
-                    id="current_eth_price"
-                    value={p0}
-                    type = 'number'
-                    onChange={e=>{setP0(Number(e.target.value))}}
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                  />
+                  <ReactiveInput value={p0} updateValue={v => {setP0(v)}} />
                 </FormControl>                 
               </Grid>
             </Grid>
@@ -407,7 +401,7 @@ export default function Simulator() {
                 <Box px={1}>
                   <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', mt:2, mb:1.5}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
-                  <Typography variant='h5' style={{color:green}}>${w0}</Typography>
+                  <Typography variant='h5' style={{color:green}}>${w0.toLocaleString()}</Typography>
                   <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
                   <Typography variant='h5' style={{color:green}}>{get_deposit_ratio()}</Typography>                  
                   <Typography variant='caption'>Fees per $ vs. V2</Typography>
@@ -418,7 +412,7 @@ export default function Simulator() {
                 <Box px={1}>
                   <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', mt:2, mb:1.5}}><FiberManualRecord fontSize="small" style={{color: 'gray'}}/>V2 Range Position</Typography>
                   <Typography variant='caption'>Capital Required</Typography>
-                  <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0))}</Typography>
+                  <Typography variant='h5'>${Math.round(w0 * Effeciancy(p0)).toLocaleString()}</Typography>
                   <Typography variant='caption'>Deposit ratio (ETH:USD)</Typography>
                   <Typography variant='h5'>50 : 50</Typography>
                 </Box>

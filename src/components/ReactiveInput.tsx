@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { OutlinedInput, InputAdornment} from "@material-ui/core";
 
-const ReactiveInput = React.memo(({value, updateValue}) => {
+const ReactiveInput = ({value, updateValue}) => {
   const [tmpValue, setTmpValue] = useState<Number>();
   useEffect(() => {
     setTmpValue(value)
@@ -14,7 +14,7 @@ const ReactiveInput = React.memo(({value, updateValue}) => {
       onChange={e=>{if(e.target.value==''){setTmpValue(NaN)}else{setTmpValue(Number(e.target.value))}}}
       onBlur = {e => {if(tmpValue!=0 && e.target.value != '') updateValue(tmpValue)}}
       onKeyDown={e => {
-        if (e.key == 'Enter' && tmpValue!=0 && e.target.value != '') {
+        if (e.key == 'Enter' && tmpValue!=0 && e.currentTarget.value != '') {
           updateValue(tmpValue);
           e.currentTarget.blur();
         }
@@ -22,6 +22,6 @@ const ReactiveInput = React.memo(({value, updateValue}) => {
       startAdornment={<InputAdornment position="start">$</InputAdornment>}
     />  
   )
-})
+}
 
 export default ReactiveInput

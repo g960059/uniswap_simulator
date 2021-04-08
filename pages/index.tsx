@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Box, Paper, Slider, Typography, IconButton, InputAdornment, FormControl, Divider, OutlinedInput,Grid} from '@material-ui/core'
 import {FiberManualRecord, Refresh} from '@material-ui/icons';
 import arange from 'lodash/range'
 import dynamic from 'next/dynamic';
 import { CoinGeckoAPI } from "@coingecko/cg-api-ts";
 import { makeStyles, createStyles,Theme } from '@material-ui/core/styles';
+import PriceRangeSlider from '../src/components/PriceRangeSlider'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -288,7 +289,6 @@ export default function Simulator() {
       }
     }
   };
-
   const options4 = {
     chart: {
       zoom: {enabled: false},
@@ -400,26 +400,7 @@ export default function Simulator() {
             <Typography id="range-slider" variant='subtitle1' gutterBottom sx={{pb:6, pt:3}}>
               Select ETH price range
             </Typography>
-            <Slider
-              value={price}
-              onChange={(e,newPrice)=>{setPrice(newPrice as number[])}}
-              sx = {{
-                '& .MuiSlider-mark': {
-                  background: "gray",
-                  width: "2px",
-                  height: "20px",
-                  marginTop: "-9px"
-                }
-              }}
-              aria-labelledby="range-slider"
-              valueLabelDisplay = 'on'
-              marks={[{value: p0, label: 'current price: $'+p0}]}
-              components = {{
-                // ValueLabel: ({children, value})=><Tooltip enterTouchDelay={0} placement="top" open={true} title={"$"+value}>{children}</Tooltip>,
-              }}
-              min= {RangeMin}
-              max= {RangeMax}
-            />
+            <PriceRangeSlider Pa={Pa} Pb={Pb} p0={p0} setPrice={setPrice} RangeMin={RangeMin} RangeMax={RangeMax} />
             <Divider sx={{py: 0.5}}/>
             <Grid container justifyContent="center" alignItems="flex-start">
               <Grid item xs={6}>

@@ -68,7 +68,15 @@ export default function Simulator() {
       return (100-r) + ' : ' + r
     }
   }
-  const L_v3 = p =>  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
+  const L_v3 = p =>  {
+    if(p <= Pa){
+      return w0/p/(1/Math.sqrt(Pa)- 1/Math.sqrt(Pb))
+    }else if(p>=Pb){
+      return w0 * (1/(Math.sqrt(Pb) - Math.sqrt(Pa)))
+    }else{
+      return  w0/(2*Math.sqrt(p) - Math.sqrt(Pa)- p/Math.sqrt(Pb))
+    }
+  }
   const L_v2 = p =>  w0/(2*Math.sqrt(p))
 
   const Effeciancy = p => 1/(1-0.5 * Math.sqrt(Pa/p)- 0.5 * Math.sqrt(p/Pb))

@@ -12,7 +12,7 @@ import InfoBox from '../src/components/InfoBox'
 
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     containerBox: {
       overflow: 'hidden',

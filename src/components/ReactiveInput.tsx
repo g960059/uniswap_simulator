@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { OutlinedInput, InputAdornment} from "@material-ui/core";
 
-const ReactiveInput = ({value, updateValue}) => {
+const ReactiveInput = ({value, updateValue, useAdornment=true}) => {
   const [tmpValue, setTmpValue] = useState<Number>();
   useEffect(() => {
     setTmpValue(value)
@@ -19,7 +19,7 @@ const ReactiveInput = ({value, updateValue}) => {
           e.currentTarget.blur();
         }
       }}
-      startAdornment={<InputAdornment position="start">$</InputAdornment>}
+      startAdornment={useAdornment && <InputAdornment position="start">$</InputAdornment>}
     />  
   )
 }

@@ -14,20 +14,24 @@ export const background = '#f3f3f3';
 const green = "#27AE60"
 
 
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    chartContainerBox: {
+    containerBox: {
+      overflow: 'hidden', 
+      overflowY: 'scroll',
+      maxHeight: `calc(100vh - 56px)`,
+      [theme.breakpoints.up('xs')]:{
+        maxHeight: `calc(100vh - 48px)`,
+      },
       [theme.breakpoints.up('sm')]: {
-        maxHeight: `calc(100vh - 78px)`,
-        overflow: 'hidden', 
-        overflowY: 'scroll',
-        marginTop: '8px'
-      }
+        maxHeight: `calc(100vh - 64px)`,
+      },
     },
   }),
 );
 
-export default function Simulator() {
+export default function Home() {
   const classes = useStyles()
   const [price, setPrice] = useState([1200, 2800]);
   const [p0, setP0] = useState(1820);
@@ -349,20 +353,20 @@ export default function Simulator() {
     }
   };
   
-  const updatePrice = () => {
-    const cg = new CoinGeckoAPI(window.fetch.bind(window));
-    cg.getSimplePrice(['ethereum'], ['usd']).then(({data})=>{
-      const currentPrice = data?.ethereum?.usd
-      setP0(Math.round(currentPrice))
-      setPrice([Math.round(currentPrice/1.5), Math.round(currentPrice*1.5)])
-    })
-  }
+  // const updatePrice = () => {
+  //   const cg = new CoinGeckoAPI(window.fetch.bind(window));
+  //   cg.getSimplePrice(['ethereum'], ['usd']).then(({data})=>{
+  //     const currentPrice = data?.ethereum?.usd
+  //     setP0(Math.round(currentPrice))
+  //     setPrice([Math.round(currentPrice/1.5), Math.round(currentPrice*1.5)])
+  //   })
+  // }
   useLayoutEffect(() => {
-    updatePrice()
+    // updatePrice()
   }, []);
 
   return (
-    <Box pb={3}>
+    <Box>
       <Grid container justifyContent='center'>
         <Grid item xs={12} md={5} lg={4} justifyContent='center'>
           <Paper sx={{p:2,m:.8,mt:1, pb:1.5}}>
@@ -379,7 +383,6 @@ export default function Simulator() {
                 <FormControl variant="outlined" fullWidth >
                   <Typography  variant='subtitle1' gutterBottom >
                     Current ETH price
-                    <IconButton size='small' edge='end' onClick={()=>{updatePrice()}}><Refresh/></IconButton>
                   </Typography>       
                   <ReactiveInput value={p0} updateValue={v => {setP0(v)}} />
                 </FormControl>                 
@@ -414,7 +417,7 @@ export default function Simulator() {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={7} container justifyContent='center' className = {classes.chartContainerBox}>
+        <Grid item xs={12} md={7} container justifyContent='center' className = {classes.containerBox}>
           <Grid item xs={12} lg={11}>
             <Paper sx={{p:.5,py:1,m:.8,mt:0}}>
               <Box>

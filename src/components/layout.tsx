@@ -1,11 +1,6 @@
-import React from 'react';
-import {AppBar, Box, Hidden} from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
+import React,{Suspense} from 'react';
+import {AppBar, Box, Hidden, CircularProgress, Toolbar, Typography,IconButton, CssBaseline, NoSsr} from '@material-ui/core';
 import {GitHub, Twitter} from '@material-ui/icons'
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 0;
@@ -94,7 +89,11 @@ function Layout(props) {
       </AppBar>
       <Box className={classes.background}></Box>
       <Box>
-        {props.children}
+        <NoSsr>
+          <Suspense fallback={<Box width={1} height='100vh' display='flex' alignContent='center' justifyContent='center'><CircularProgress /></Box>}>
+            {props.children}
+          </Suspense>
+        </NoSsr>
       </Box>
     </>
   );

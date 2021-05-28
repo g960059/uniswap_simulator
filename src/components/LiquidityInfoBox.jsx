@@ -46,13 +46,14 @@ const LiquidityInfoBox = React.memo(() =>{
     <Box p={1} sx={{backgroundColor:'#f1f5f9', mx:-2, my:2, px:1, py:2}}>
       <Grid container justifyContent="center" alignItems="flex-start">
         <Grid item xs={6}>
-          <Box>
+          <Box pl={1}>
             <Typography variant='subtitle1' sx={{display:'flex', alignItems: 'center', mt:1, mb:1.5}}><FiberManualRecord fontSize="small" style={{color: green}}/>V3 Range Position</Typography>
             <Typography variant='caption'>Capital Required</Typography>
             <Typography variant='h5' style={{color:green}}>${formatter.format(depositValue)}</Typography>
             <Typography variant='caption'>Deposit ratio ({token0.symbol}:{token1.symbol})</Typography>
             <Typography variant='h5' style={{color:green}}>{deposit_ratio}</Typography>                  
-            
+            <Typography variant='caption'>Current fees per $ vs. V2</Typography>
+            <Typography variant='h5' style={{color:green}}>{minEfficancy.toPrecision(3)}x </Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>
@@ -64,17 +65,7 @@ const LiquidityInfoBox = React.memo(() =>{
             <Typography variant='h5'>50 : 50</Typography>
           </Box>
         </Grid>
-      </Grid>
-      <Box>
-        <Typography variant='caption'>Current fees per $ vs. V2</Typography>
-        {/* <Typography variant='h5' style={{color:green}}>{efficancy.toPrecision(3)}x </Typography> */}
-      </Box>  
-      <Box>
-        <Stack direction='row' alignItems='center'>
-          <Typography variant='h5' style={{color:green}}>{minEfficancy.toPrecision(3)}x </Typography>
-          {/* <Typography variant='subtitle1' sx={{ml:1}}> ( {formatter.format(token0Price/token1Price*(Math.sqrt(M*m)))} {token1.symbol}/{token0.symbol} )</Typography> */}
-        </Stack>
-      </Box>                
+      </Grid>          
     </Box>
   )
 })

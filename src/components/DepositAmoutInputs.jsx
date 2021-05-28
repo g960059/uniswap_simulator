@@ -46,9 +46,9 @@ const DepositAmountInputs = React.memo(() =>{
   
 
   return (
-    <Box p={2}>
-      <Typography variant='subtitle2' color='text.secondary'>Total deposit value: ~${formatter.format((getToken0Amount() * token0Price + getToken1Amount() * token1Price)*ethPrice)}</Typography>
-      <Stack direction='row' spacing={2} sx={{mt:1}}>
+    <Box pt={1}>
+      <Typography variant='subtitle2' color='text.secondary'>Token Amount</Typography>
+      <Stack direction='row' spacing={2} >
         <ReactiveInput 
           value = {getToken0Amount()}  
           updateValue={value=>setToken0Amount(value)} 

@@ -37,7 +37,6 @@ const PositionBox = () => {
         <Box px={2}>
           <PriceRangeSlider/>
         </Box>
-        <DepositAmountInputs/>
       </>}
       {selectedPosition?.type === "hodl" &&  <HodlDepositBox/>}
       <Stack direction = "row" justifyContent='center' alignItems="center">

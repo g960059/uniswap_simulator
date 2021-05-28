@@ -8,6 +8,7 @@ import { useAtomValue } from 'jotai/utils'
 import LiquidityInfoBox from '../components/LiquidityInfoBox'
 import {useDebounce} from '../hooks/index'
 import {Input} from './ReactiveInput'
+import DepositAmountInputs from './DepositAmoutInputs'
 
 
 const formatPowValue = v => v >0 ? Number((10**v).toPrecision(3)): Number((10**v).toFixed(2))
@@ -110,7 +111,8 @@ const PriceRangeSlider = React.memo(()=>{
 
           </FormControl>
         </Box>      
-      </Stack>        
+      </Stack>       
+      <DepositAmountInputs/> 
       <LiquidityInfoBox/>
     </Stack>
   </>

@@ -102,7 +102,7 @@ const PlotBox = React.memo(() =>{
         if(1 <= m){
           if(r <= m) return w0 * r
           else if(M <= r) return 0
-          else if(m <r && r < M) return w0 / (1/ sqrt_m - 1/ sqrt_M)* (Math.sqrt(r) - r / sqrt_M)
+          else if(m <r && r < M) return w0 /(1/sqrt_m - 1/ sqrt_M)* (Math.sqrt(r) - r / sqrt_M)
         }
         else if(m < 1 < M){
           if(r <= m) return w0 / (2 - sqrt_m  - 1 / sqrt_M ) * (1 / sqrt_m - 1 / sqrt_M) * r ;

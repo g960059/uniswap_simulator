@@ -48,12 +48,12 @@ const StrategyBox = React.memo(() =>{
     if(item.position.type == 'uniswap_v3_lp'){
       const m = item.position.tickLower
       const M = item.position.tickUpper
-      const depositAmount = item.position.depositValue / ethPrice / token1Price
+      const depositAmount = item.position.depositValue / token1Price
       if(m<=1 && 1<=M)  return depositAmount * (1-1/ Math.sqrt(M))/(2-1/Math.sqrt(M) - Math.sqrt(m)) / currentPrice * item.ratio;
       if(1 <= m) return depositAmount / currentPrice * item.ratio;
       if(M<= 1) return 0         
     }
-    if(item.position.type == 'hodl') return Number(item.position.token0Value)/ ethPrice/ token0Price * item.ratio;
+    if(item.position.type == 'hodl') return Number(item.position.token0Value)/ token0Price * item.ratio;
     else return 0
   }
 
@@ -61,12 +61,12 @@ const StrategyBox = React.memo(() =>{
     if(item.position.type == 'uniswap_v3_lp'){
       const m = item.position.tickLower
       const M = item.position.tickUpper
-      const depositAmount = item.position.depositValue / ethPrice / token1Price
+      const depositAmount = item.position.depositValue / token1Price
       if(m<=1 && 1<=M) return depositAmount *((1-Math.sqrt(m))/(2-1/Math.sqrt(M) - Math.sqrt(m)))*item.ratio
       if(1 <= m) return 0
       if(M<= 1) return depositAmount * item.ratio
     }
-    if(item.position.type == 'hodl') return Number(item.position.token1Value)/ ethPrice/ token0Price * item.ratio
+    if(item.position.type == 'hodl') return Number(item.position.token1Value)/ token0Price * item.ratio
     else return 0
   }
 
@@ -164,6 +164,31 @@ const StrategyBox = React.memo(() =>{
             Object.keys(positionAtom).length != 0 &&  <PositionItem positionAtom ={positionAtom} token0={token0} token1={token1} token0Price={token0Price} token1Price={token1Price}/>
           ))
         )}
+
+    
+        <Box sx={{backgroundColor:'#f1f5f9', mx:-2, mb:2, px:1, py:2,mt:3}}>
+          <Typography variant='subtitle2' sx={{ml:2, pb:1}}>Strategy Summary</Typography>
+          <Grid container justifyContent='center' alignItems='center'>
+            <Grid item xs={3}>
+              <Typography variant='caption'>Total Value</Typography>
+              <Typography variant='h6' sx={{fontWeight: 600}}>${formatter.format(getDepositValue())}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant='caption'>{token0.symbol}</Typography>
+              <Stack direction = 'row' justifyContent='flex-start' alignItems='center'>
+                <Typography variant='h6' sx={{fontWeight: 600}}>{formatter.format(token0AmountTotal)}</Typography>
+                <Typography variant='caption' color='text.secondary' sx={{ml:.5}}>(${formatter.format(token0AmountTotal * token0Price)})</Typography>
+              </Stack>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant='caption'>{token1.symbol}</Typography>
+              <Stack direction = 'row' justifyContent='flex-start' alignItems='center'>
+                <Typography variant='h6' sx={{fontWeight: 600}}>{formatter.format(token1AmountTotal)}</Typography>
+                <Typography variant='caption'  color='text.secondary' sx={{ml:.5}}>(${formatter.format(token1AmountTotal * token1Price)})</Typography>
+              </Stack>
+            </Grid>          
+          </Grid>
+        </Box>        
 
         <Stack direction = "row" justifyContent='center' alignItems="center">
           <Button startIcon={<Delete/>} sx={{mt:2}} variant='outlined' color='grey' onClick={e=>{deleteStrategy(strategy.id)}}>Delete Strategy</Button>
@@ -366,26 +391,3 @@ export const PositionItem = React.memo(({positionAtom, token0, token1, token0Pri
 
 
 
-    {/* <Typography variant='subtitle1' ><strong>Strategy Summary</strong></Typography>
-      <Box sx={{bgcolor: 'white', borderRadius: 2,border:1, borderColor: 'grey.300', my:1,py:1}}>
-        <Grid container justifyContent='center' alignItems='center'>
-          <Grid item xs={3}>
-            <Typography variant='caption'>Total Value</Typography>
-            <Typography variant='subtitle1' sx={{color: 'primary.main',fontWeight: 600}}>${formatter.format(getDepositValue())}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant='caption'>{token0.symbol}</Typography>
-            <Stack direction = 'row' justifyContent='flex-start' alignItems='center'>
-              <Typography variant='subtitle1' sx={{color: 'primary.main',fontWeight: 600}}>{formatter.format(token0AmountTotal)}</Typography>
-              <Typography variant='caption' color='text.secondary' sx={{ml:.5}}>(${formatter.format(token0AmountTotal * token0Price * ethPrice)})</Typography>
-            </Stack>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant='caption'>{token1.symbol}</Typography>
-            <Stack direction = 'row' justifyContent='flex-start' alignItems='center'>
-              <Typography variant='subtitle1' sx={{color: 'primary.main',fontWeight: 600}}>{formatter.format(token1AmountTotal)}</Typography>
-              <Typography variant='caption'  color='text.secondary' sx={{ml:.5}}>(${formatter.format(token1AmountTotal * token1Price * ethPrice)})</Typography>
-            </Stack>
-          </Grid>          
-        </Grid>
-      </Box> */}

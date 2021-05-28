@@ -2,7 +2,7 @@ import React,{ useMemo, useState} from 'react';
 import {Stack, Box, Grid, Button, FormControl,InputLabel,Select, MenuItem, Typography,Divider, Tab, useMediaQuery, Avatar, AvatarGroup} from '@material-ui/core';
 import {TabContext, TabList, TabPanel} from '@material-ui/lab'
 import { useAtomValue } from 'jotai/utils'
-import { strategiesReadOnlyAtom, currentPricesAtom, ethPriceAtom, ETH, USDC} from '../store/index'
+import { strategiesReadOnlyAtom, currentPricesAtom, ethPriceAtom, ETH, USDC, LpPosition, Position} from '../store/index'
 import arange from 'lodash/range'
 import {Scatter} from 'react-chartjs-2';
 import {COLORS} from "../utils/color_palette";
@@ -38,7 +38,7 @@ const PlotBox = React.memo(() =>{
     return [...acc,{id, token0: s.token0, token1: s.token1}]
   },[])
 
-  const [rangeMin, setRangeMin] = useState(Math.min(p0 / 2, strategies.map(s=> s.positions.filter(p=>p.type==='uniswap_v3_lp').map(p=>p?.tickLower)).flat().reduce((a,b)=> a>b?b:a,1)* 0.1 * p0 ));
+  const [rangeMin, setRangeMin] = useState(Math.min(p0 / 2, strategies.map(s=> s.positions.filter(p =>p.type==='uniswap_v3_lp').map((p) =>p?.tickLower)).flat().reduce((a,b)=> a>b?b:a,1)* 0.1 * p0 ));
   const [rangeMax, setRangeMax] = useState(Math.max(p0*2, strategies.map(s=> s.positions.filter(p=>p.type==='uniswap_v3_lp').map(p=>p?.tickUpper)).flat().reduce((a,b)=> a<b?b:a,1)* 1.2 * p0));
 
   const [targetStrategyId, setTargetStrategyId] = useState(strategies[0].id);

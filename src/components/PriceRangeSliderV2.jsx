@@ -97,7 +97,7 @@ const PriceRangeSlider = React.memo(()=>{
         <Box>
           <FormControl sx={{display:'flex', alignItems:'flex-start', justifyContent: 'center'}}>
             <Typography variant='subtitle2' sx={{mb:1, color:'text.secondary'}} >Max Price (x{formatter3.format(maxPrice)})</Typography>
-            <NumberFormat  
+            <NumberFormat
               value={maxPrice * p0} 
               onValueChange={({value})=>{ 
                 setMaxPrice(value / p0);
@@ -107,8 +107,7 @@ const PriceRangeSlider = React.memo(()=>{
               decimalScale ={maxPrice * p0 <= 10 ? precision : 0}
               inputProps={{min: 0, style: { textAlign: 'center' }}}
               endAdornment= {<InputAdornment position="start">{ticker}</InputAdornment>}
-            />          
-
+            />
           </FormControl>
         </Box>      
       </Stack>       

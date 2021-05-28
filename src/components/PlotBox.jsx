@@ -28,7 +28,7 @@ const PlotBox = React.memo(() =>{
   const p0 = currentPrices[token0.address] / currentPrices[token1.address]
 
   const allStrategies = useAtomValue(strategiesReadOnlyAtom)
-  const strategies = allStrategies.filter(s => s.token0.address === token0.address && s.token1.address === token1.address)
+  const strategies = useMemo(()=> allStrategies.filter(s => s.token0.address === token0.address && s.token1.address === token1.address,[token0,token1]))
   const pairs = allStrategies.reduce((acc,s)=>{
     const id = s.token0.address + "__" + s.token1.address
     for(let pair of acc){
@@ -270,8 +270,16 @@ const PlotBox = React.memo(() =>{
             sx={{boxShadow:"0 3px 6px -2px rgb(0 10 60 / 20%)",border: '1px solid #eff6fb99' ,backgroundColor:'white'}}
             onChange={e => {
               const pair = pairs.find(p=>p.id===e.target.value)
-              setToken0(pair.token0);
-              setToken1(pair.token1)
+              if(pair.token0.address != token0.address || pair.token1.address != token1.address){
+                setToken0(pair.token0);
+                setToken1(pair.token1);
+                if(strategies.length>1){
+                  const newStrategies = allStrategies.filter(s => s.token0.address === pair.token0.address && s.token1.address === pair.token1.address)
+                  console.log(newStrategies[0].id,newStrategies[1].id)
+                  setTargetStrategyId(newStrategies[0].id)
+                  setBaseStrategyId(newStrategies[1].id)
+                }
+              }
             }}
             input={<Input/>}
           >

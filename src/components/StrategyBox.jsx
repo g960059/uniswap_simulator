@@ -66,7 +66,7 @@ const StrategyBox = React.memo(() =>{
       if(1 <= m) return 0
       if(M<= 1) return depositAmount * item.ratio
     }
-    if(item.position.type == 'hodl') return Number(item.position.token1Value)/ token0Price * item.ratio
+    if(item.position.type == 'hodl') return Number(item.position.token1Value)/ token1Price * item.ratio
     else return 0
   }
 

@@ -30,7 +30,6 @@ const PositionBox = () => {
         variant='standard'
         useAdornment = {false}
         sx={{ maxWidth:280, fontWeight: 600, mx:2, fontSize: 'subtitle1.fontSize'}}
-        autoFocus
         fullWidth
       />      
       {selectedPosition?.type === "uniswap_v3_lp" &&  <>

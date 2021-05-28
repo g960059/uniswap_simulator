@@ -116,7 +116,6 @@ const StrategyBox = React.memo(() =>{
           variant='standard'
           useAdornment = {false}
           sx={{ maxWidth:280, fontWeight: 600, mr:2}}
-          autoFocus
           fullWidth
         />
         <TokenSelect token0={token0} token1={token1} setToken0={(token)=>{setStrategy(prev => ({...prev, token0: token}))}} setToken1={(token)=>{setStrategy(prev => ({...prev, token1: token}))}}/>

@@ -89,7 +89,7 @@ function Layout(props) {
       <Box className={classes.background}></Box>
       <Box>
         <NoSsr>
-          <Suspense fallback={<Box width={1} height='100vh' display='flex' alignContent='center' justifyContent='center'><CircularProgress /></Box>}>
+          <Suspense fallback={<Box width={1} height='calc(100vh - 100px)' display='flex' alignItems='center' justifyContent='center'><CircularProgress /></Box>}>
             {props.children}
           </Suspense>
         </NoSsr>

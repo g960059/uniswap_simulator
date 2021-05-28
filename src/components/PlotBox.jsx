@@ -273,9 +273,8 @@ const PlotBox = React.memo(() =>{
               if(pair.token0.address != token0.address || pair.token1.address != token1.address){
                 setToken0(pair.token0);
                 setToken1(pair.token1);
-                if(strategies.length>1){
-                  const newStrategies = allStrategies.filter(s => s.token0.address === pair.token0.address && s.token1.address === pair.token1.address)
-                  console.log(newStrategies[0].id,newStrategies[1].id)
+                const newStrategies = allStrategies.filter(s => s.token0.address === pair.token0.address && s.token1.address === pair.token1.address)
+                if(newStrategies.length>1){
                   setTargetStrategyId(newStrategies[0].id)
                   setBaseStrategyId(newStrategies[1].id)
                 }

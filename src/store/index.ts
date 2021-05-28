@@ -90,7 +90,7 @@ export const convertToTokenInfo = token => new TokenInfo(1,token.address, token.
 export const ETH = new TokenInfo(ChainId.MAINNET, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",18,"ETH","Ether", "https://assets.coingecko.com/coins/images/2518/thumb/weth.png?1547036627")
 export const USDC = new TokenInfo(ChainId.MAINNET,  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6, "USDC", "USD Coin", "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389")
 
-const prefix = 'uniswap_simulator_'
+const prefix = 'osushi_2.0.1'
 
 const endpoint = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswapv2"
 const client = new GraphQLClient(endpoint)
@@ -120,8 +120,8 @@ export const selectedStrategyIdAtom = atomWithLocalStorage<string>(prefix+'selec
 //     token1: USDC,
 //   })
 
-export const defaultLpPosition = atomWithLocalStorage('firstPositionLpId',{
-    id: 'firstPositionLpId',
+export const defaultLpPosition = atomWithLocalStorage(prefix+'firstPositionLpId',{
+    id: `${prefix}firstPositionLpId`,
     type: 'uniswap_v3_lp',
     name: 'Moderate Range',
     depositValue : 100000,
@@ -129,16 +129,16 @@ export const defaultLpPosition = atomWithLocalStorage('firstPositionLpId',{
     tickLower: 0.4,
   }
 )
-export const defaultHodlPosition1 = atomWithLocalStorage<HodlPosition>('firstPositionHodlId',{
-    id: 'firstPositionHodlId',
+export const defaultHodlPosition1 = atomWithLocalStorage<HodlPosition>(prefix+'firstPositionHodlId',{
+    id: `${prefix}firstPositionHodlId`,
     type: 'hodl',
     name: '100:0 HODL',
     token0Value: 100000,
     token1Value: 0,
   }
 )
-export const defaultHodlPosition2 = atomWithLocalStorage<HodlPosition>('secondPositionHodlId',{
-    id: 'secondPositionHodlId',
+export const defaultHodlPosition2 = atomWithLocalStorage<HodlPosition>(prefix+'secondPositionHodlId',{
+    id: `${prefix}secondPositionHodlId`,
     type: 'hodl',
     name: '50:50 HODL',
     token0Value: 50000,
@@ -146,11 +146,11 @@ export const defaultHodlPosition2 = atomWithLocalStorage<HodlPosition>('secondPo
   }
 )
 
-export const positionsAtom = atomWithLocalStorage<Atom<LpPosition | HodlPosition>[]>('positions_atom',[defaultLpPosition,defaultHodlPosition1,defaultHodlPosition2])
+export const positionsAtom = atomWithLocalStorage<Atom<LpPosition | HodlPosition>[]>(prefix+'positions_atom',[defaultLpPosition,defaultHodlPosition1,defaultHodlPosition2])
 
 export const createNewLpPositionAtom = atom(null,
   (get,set) =>{
-    const id = nanoid()
+    const id = prefix+nanoid()
     set(positionsAtom,([
       ...get(positionsAtom), atomWithLocalStorage<LpPosition>(id, {
         id, 
@@ -171,7 +171,7 @@ export const createNewLpPositionAtom = atom(null,
 
 export const createNewHodlPositionAtom = atom(null,
   (get,set) =>{
-    const id = nanoid()
+    const id = prefix+nanoid()
     set(positionsAtom,[
       ...get(positionsAtom), atomWithLocalStorage<HodlPosition>(id, {
         id,    
@@ -191,7 +191,7 @@ export const createNewHodlPositionAtom = atom(null,
 
 export const createNewStrategyAtom = atom(null,
   (get,set) => {
-    const id = nanoid();
+    const id = prefix+nanoid();
     const name = `Strategy ${get(strategiesAtom).length+1}`
 
     set(strategiesAtom, [
@@ -241,43 +241,43 @@ export const deleteStrategyAtom = atom(null,
   }
 )
 
-export const defaultStrategy1 = atomWithLocalStorage<Strategy>('defaultStrategy1',
+export const defaultStrategy1 = atomWithLocalStorage<Strategy>(prefix+'defaultStrategy1',
   {
-    id: 'defaultStrategy1',
+    id: `${prefix}defaultStrategy1`,
     name: 'Moderate Range Strategy',
     totalDeposit: null,
     positions: { 
-      'firstPositionLpId': 1
+      [prefix+'firstPositionLpId']: 1
     },
     token0: ETH,
     token1: USDC,
   },
 )
-export const defaultStrategy2 = atomWithLocalStorage<Strategy>('defaultStrategy2',
+export const defaultStrategy2 = atomWithLocalStorage<Strategy>(prefix+'defaultStrategy2',
   {
-    id: 'defaultStrategy2',
+    id: `${prefix}defaultStrategy2`,
     name: '50:50 HODL',
     totalDeposit: null,
     positions: { 
-      'secondPositionHodlId': 1
+      [prefix+'secondPositionHodlId']: 1
     },
     token0: ETH,
     token1: USDC,
   },
 )
-export const defaultStrategy3 = atomWithLocalStorage<Strategy>('defaultStrategy3',
+export const defaultStrategy3 = atomWithLocalStorage<Strategy>(prefix+'defaultStrategy3',
   {
-    id: 'defaultStrategy3',
+    id: `${prefix}defaultStrategy3`,
     name: '100:0 HODL',
     totalDeposit: null,
     positions: { 
-      'firstPositionHodlId': 1
+      [prefix+'firstPositionHodlId']: 1
     },
     token0: ETH,
     token1: USDC,
   },
 )
-export const strategiesAtom = atomWithLocalStorage<Atom<Strategy>[]>('strategiesAtom',[defaultStrategy1,defaultStrategy2,defaultStrategy3])
+export const strategiesAtom = atomWithLocalStorage<Atom<Strategy>[]>(prefix+'strategiesAtom',[defaultStrategy1,defaultStrategy2,defaultStrategy3])
 export const strategiesReadOnlyAtom = atom(get => {
   const positions = get(positionsAtom).map(position => get(position))
   return get(strategiesAtom).map(strategyAtom => {
@@ -374,7 +374,7 @@ export const currentPricesAtom = atom((get) =>{
   return Object.fromEntries(get(topCoinListsAtom).map(token => [token.id, token.derivedETH]))
 })
 
-export const slideDirectionAtom = atomWithLocalStorage('slideDirection','right')
+export const slideDirectionAtom = atomWithLocalStorage(prefix+'slideDirection','right')
 
 // export const token1AmountAtom = atom(
 //   (get)=>{

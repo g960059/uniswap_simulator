@@ -68,7 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function Layout(props) {
   const classes = useStyles();
-
   return (
     <>
       <CssBaseline />

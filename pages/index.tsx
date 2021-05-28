@@ -103,7 +103,7 @@ export default function Home() {
   const getILv2 = (p)=>(w_v2(p) - w_hold(p))/w_hold(p) * 100
   const getILv3_imbalance = (p)=>(w_v3(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
   const getILv2_imbalance = (p)=>(w_v2(p) - w_hold_imbalance(p))/w_hold_imbalance(p) * 100
-  const px = arange(RangeMin, RangeMax, Number((p0*0.01).toPrecision(1)))
+  const px = arange(RangeMin, RangeMax, Number(((Pb-Pa)*0.01).toPrecision(1)))
   const ILv3_trace = px.map(d=>{return {x:d,y: getILv3(d)}})
   const ILv2_trace = px.map(d=>{return {x:d,y: getILv2(d)}})
   const ILv3_imbalance_trace = px.map(d=>{return {x:d,y: getILv3_imbalance(d)}})

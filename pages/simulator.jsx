@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import {Box,Table,TableBody,Grid,TableHead,TableCell as MuiTableCell,TableRow,Paper,Divider,Avatar,Typography,Hidden,OutlinedInput, Slider, CardContent, Stack, FormControl, DialogTitle,DialogActions,DialogContent,DialogContentText,Button, TextField} from '@material-ui/core';
-import Image from 'next/image'
-// import {Settings, Close, Add, Delete} from '@material-ui/icons';
-import { makeStyles, createStyles, Theme, withStyles} from '@material-ui/core/styles';
+import {Box,TableCell as MuiTableCell,Divider,Typography,Hidden, Stack,Slide,Grid} from '@material-ui/core';
+import { makeStyles, createStyles} from '@material-ui/core/styles';
 import Split from 'react-split-grid';
 import {useAtom} from 'jotai'
-import {poolAtom, token0Atom,token1Atom} from '../src/store/index'
-import AccountManagement from '../src/components/AccountManagement'
-import PriceSimulationBox from '../src/components/PriceSimulatonBox'
-import InfoBox from '../src/components/InfoBox'
-
+import { useUpdateAtom, useAtomValue } from 'jotai/utils'
+import {selectedPositionIdAtom, selectedPositionAtom, deletePositionAtom, selectedStrategyIdAtom, slideDirectionAtom} from '../src/store/index'
+import TokenSelect from '../src/components/TokenSelect'
+import StrategyList from '../src/components/StrategyList'
+import StrategyBox from '../src/components/StrategyBox'
+import PlotBox from '../src/components/PlotBox'
+import PositionBox from '../src/components/PositionBox'
 
 
 const useStyles = makeStyles((theme) =>
@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) =>
     containerBox: {
       overflow: 'hidden',
       overflowY: 'scroll',
-      height: `calc(100vh - 56px)`,
-      [theme.breakpoints.up('xs')]: {
-        height: `calc(100vh - 48px)`,
+      height: `auto`,
+      [theme.breakpoints.up('md')]: {
+        height: `calc(100vh - 56px)`,
       },
       [theme.breakpoints.up('sm')]: {
         height: `calc(100vh - 64px)`,
@@ -31,39 +31,48 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '1fr !important',
       },
-    }
+    },
   })
 );
 
 const Simulator = () => {
   const classes = useStyles();
-  const [pool] = useAtom(poolAtom)
-  const [token0, setToken0] = useAtom(token0Atom);
-  const [token1, setToken1] = useAtom(token1Atom);
+  const selectedPositionId = useAtomValue(selectedPositionIdAtom);
+  const selectedStrategyId = useAtomValue(selectedStrategyIdAtom);
+  const [slideDirection, setSlideDirection] = useAtom(slideDirectionAtom);
   
   return (
-    <>
-      <Divider sx={{ mt: -0.5 }} />
-      <Split
-        render={({ getGridProps, getGutterProps }) => (
-          <Box {...getGridProps()} className={classes.gridBox} >
-            <Box  className={classes.containerBox} minWidth={450} sx={{backgroundColor: '#fffcfc94'}}>
-              <Box px={2} pt={2}>
-                <AccountManagement/>
-              </Box>
-              <Box px={2}>
-                <InfoBox/>
-              </Box>
-              
-            </Box>
-            <Hidden smDown>
-              <Divider {...getGutterProps('column', 1)} sx={{gridColumn:2, cursor:'col-resize'}} orientation="vertical" flexItem/>
-            </Hidden>
-            <Box  className={classes.containerBox}>
-            </Box>
+    <> 
+      <Hidden smDown>
+        <Divider sx={{ mt: -0.5 }} />
+      </Hidden>
+      <Grid container justifyContent='center'>
+        <Grid item xs={12} md={5} lg={3} justifyContent='center' sx={{order:[1,0]}}>
+          <Box className={classes.containerBox}>
+            {(selectedPositionId != null  && selectedPositionId != null) && <Slide direction="left" in={selectedPositionId != null && selectedPositionId != null} mountOnEnter unmountOnExit>
+                <div><PositionBox/></div>
+              </Slide>
+            }
+            {(selectedStrategyId != null && selectedPositionId === null) && 
+              <Slide direction={slideDirection} in={selectedStrategyId != null && selectedPositionId === null} mountOnEnter unmountOnExit>
+                <div><StrategyBox/></div>
+              </Slide>
+            }              
+            {selectedPositionId == null && selectedStrategyId == null && <Slide direction="right" in={selectedPositionId == null && selectedStrategyId == null} mountOnEnter unmountOnExit>
+                <div><StrategyList/></div>
+              </Slide>
+            }
+        </Box>
+          <Hidden smDown>
+            <Divider orientation="vertical" flexItem/>
+          </Hidden>            
+        </Grid>
+        <Grid item xs={12} md={7} lg={9} sx={{order:[0,1]}}>
+          <Box className={classes.containerBox}>
+            <PlotBox/>
           </Box>
-        )}
-      />
+        </Grid>
+      </Grid>
     </>
   );
 };

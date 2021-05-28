@@ -300,39 +300,39 @@ export type LiquidityPositionsQuery = (
 
 
 export const LiquidityPositionsDocument = `
-    query liquidityPositions($account: Bytes!) {
-  user(id: $account) {
-    liquidityPositions {
-      id
-      liquidityTokenBalance
-      pair {
-        token0 {
-          id
-          symbol
-          name
-          decimals
+  query liquidityPositions($account: Bytes!) {
+    user(id: $account) {
+      liquidityPositions {
+        id
+        liquidityTokenBalance
+        pair {
+          token0 {
+            id
+            symbol
+            name
+            decimals
+          }
+          token1 {
+            id
+            symbol
+            name
+            decimals
+          }
+          reserve0
+          reserve1
+          token0Price
+          token1Price
+          volumeToken0
+          volumeToken1
+          reserveUSD
+          reserveETH
+          volumeUSD
+          totalSupply
+          createdAtTimestamp
         }
-        token1 {
-          id
-          symbol
-          name
-          decimals
-        }
-        reserve0
-        reserve1
-        token0Price
-        token1Price
-        volumeToken0
-        volumeToken1
-        reserveUSD
-        reserveETH
-        volumeUSD
-        totalSupply
-        createdAtTimestamp
       }
     }
   }
-}
     `;
 export const useLiquidityPositionsQuery = <
       TData = LiquidityPositionsQuery,

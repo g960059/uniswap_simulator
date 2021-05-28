@@ -10,6 +10,7 @@ type Query {
   users: [User]
   user(id: Bytes): User
   liquidityPositions: [LiquidityPosition]
+  tokens: [Token]
 }
 
 type UniswapFactory {

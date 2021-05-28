@@ -31,3 +31,9 @@ query liquidityPositions($account: Bytes!) {
     }
   }
 }
+
+query listTokens{
+  tokens(orderBy: tradeVolumeUSD,orderDirection:desc,first:100){
+		symbol    
+  }
+}

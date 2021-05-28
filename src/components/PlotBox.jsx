@@ -46,7 +46,7 @@ const PlotBox = React.memo(() =>{
   const targetStrategy = useMemo(()=>strategies.find(({id})=>targetStrategyId === id),[targetStrategyId])
   const baseStrategy = useMemo(()=>strategies.find(({id})=>baseStrategyId === id),[baseStrategyId])
 
-  const isUpMd= useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const isUpMd= useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   const px = arange(rangeMin, rangeMax, Number((rangeMax*0.008).toPrecision(1)))
   const getPositionValueTrace = (position, px) =>{

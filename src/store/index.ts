@@ -68,7 +68,9 @@ export class TokenInfo {
 
 const format = (x: number) => Number(x.toPrecision(6))
 
-const selectAtom = <A>(listAtom: Atom<Atom<A>[]>, idAtom: Atom<string>) => {
+interface model {id: string}
+
+const selectAtom = <A extends model>(listAtom: Atom<Atom<A>[]>, idAtom: Atom<string>) => {
   return atom(
     (get)=> {
       if(get(idAtom) === null) return null

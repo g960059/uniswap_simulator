@@ -20,7 +20,7 @@ export const Input = withStyles((theme) => ({
 
 
 const ReactiveInput = ({value, updateValue, useAdornment=true, type ='number',variant='outlined', ...args}) => {
-  const [tmpValue, setTmpValue] = useState<number | string>();
+  const [tmpValue, setTmpValue] = useState();
   useEffect(() => {
     setTmpValue(value)
   }, [value]);

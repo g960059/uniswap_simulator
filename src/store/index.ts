@@ -256,7 +256,7 @@ export const defaultStrategy1 = atomWithLocalStorage<Strategy>(prefix+'defaultSt
 export const defaultStrategy2 = atomWithLocalStorage<Strategy>(prefix+'defaultStrategy2',
   {
     id: `${prefix}defaultStrategy2`,
-    name: '50:50 HODL',
+    name: '50:50 HODL Strategy',
     totalDeposit: null,
     positions: { 
       [prefix+'secondPositionHodlId']: 1
@@ -268,7 +268,7 @@ export const defaultStrategy2 = atomWithLocalStorage<Strategy>(prefix+'defaultSt
 export const defaultStrategy3 = atomWithLocalStorage<Strategy>(prefix+'defaultStrategy3',
   {
     id: `${prefix}defaultStrategy3`,
-    name: '100:0 HODL',
+    name: '100:0 HODL Strategy',
     totalDeposit: null,
     positions: { 
       [prefix+'firstPositionHodlId']: 1

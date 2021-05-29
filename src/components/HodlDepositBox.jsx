@@ -3,6 +3,7 @@ import {Stack, Box, TextField, OutlinedInput, InputAdornment, Button, Avatar, Ty
 import {useAtom} from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { token0Atom, token1Atom,  ethPriceAtom,token0PriceAtom, token1PriceAtom, selectedPositionAtom} from '../store/index'
+import ReactiveInput from './ReactiveInput'
 
 const formatter = new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 4 })
 const format = (x) => Number(x.toPrecision(6))
@@ -28,60 +29,59 @@ const HodlDepositBox = React.memo(() =>{
   console.log(position)
   return (
     <Box p={2}>
-      <Typography variant='subtitle1' sx={{mb:1}}><strong>Hodl Position</strong></Typography>
-      <Box p={2} sx={{bgcolor: 'white', borderRadius: 5, border:1, borderColor: 'grey.300'}}>
+      <Box py={2}>
         <Typography variant='subtitle2' color='text.secondary'>Total deposit value: ~${formatter.format(depositValue)}</Typography>
         <Stack direction='row' spacing={2} sx={{mt:1}}>
-          <TextField 
-            value={Number(Number(token0Amount).toPrecision(4))} 
-            onChange={e=>setPosition(old=>({...old, token0Value: e.target.value * token0Price * ethPrice}))} 
-            inputProps ={{min: 0, style: { textAlign: 'right' }}}
-            InputProps={{
-              startAdornment:<InputAdornment position='start'><Avatar sx={{ width: 21, height: 21,mr:1 }} src={token0.logoURI}/>{token0.symbol}</InputAdornment> 
-            }}
+          <ReactiveInput 
+            value = {Number(Number(token0Amount).toPrecision(4))}  
+            updateValue={(value)=>{setPosition(old=>({...old, token0Value: value * token0Price * ethPrice}))}} 
+            type = 'text'
+            variant='standard'
+            startAdornment={<InputAdornment position='start'><Avatar sx={{ width: 21, height: 21,mr:1 }} src={token0.logoURI}/>{token0.symbol}</InputAdornment> }
             fullWidth
-            size='small'
-            sx={{'& .MuiFormHelperText-root':{textAlign:'right', marginRight:1}}}
             required
+            size='small'
+            sx={{pl:1}}
+            inputProps ={{min: 0, style: { textAlign: 'right' }}}
           />
-          <TextField 
-            value={Number(Number(token1Amount).toPrecision(4))} 
-            onChange={e=>setPosition(old=>({...old, token1Value: e.target.value * token1Price * ethPrice}))} 
-            inputProps ={{min: 0, style: { textAlign: 'right' }}}
-            InputProps={{
-              startAdornment:<InputAdornment position='start'><Avatar sx={{ width: 21, height: 21,mr:1 }} src={token1.logoURI}/>{token1.symbol}</InputAdornment>
-            }}
+          <ReactiveInput 
+            value = {Number(Number(token1Amount).toPrecision(4))}  
+            updateValue={(value)=>{setPosition(old=>({...old, token1Value: value * token1Price * ethPrice}))}} 
+            type = 'text'
+            variant='standard'
+            startAdornment={<InputAdornment position='start'><Avatar sx={{ width: 21, height: 21,mr:1 }} src={token1.logoURI}/>{token1.symbol}</InputAdornment> }
             fullWidth
-            size='small'
-            sx={{'& .MuiFormHelperText-root':{textAlign:'right', marginRight:1}}}
             required
-          />      
+            size='small'
+            sx={{pl:1}}
+            inputProps ={{min: 0, style: { textAlign: 'right' }}}
+          /> 
         </Stack>        
         <Stack direction='row' spacing={2} sx={{mt:1}}>
-          <TextField 
-            value={Number(Number(token0Value).toPrecision(4))}
-            variant = 'standard' 
-            onChange={e=>setPosition(old=>({...old, token0Value: e.target.value}))} 
-            inputProps ={{min: 0, style: { textAlign: 'right' }}}
-            InputProps={{
-              endAdornment:<InputAdornment position='end'>USD</InputAdornment> 
-            }}
-            size='small'
-            sx={{'& .MuiFormHelperText-root':{textAlign:'right', marginRight:1}}}
+          <ReactiveInput 
+            value = {Number(Number(token0Value).toPrecision(4))}  
+            updateValue={(value)=>{setPosition(old=>({...old, token0Value: value}))}} 
+            type = 'text'
+            variant='standard'
+            startAdornment={<InputAdornment position='start'>$</InputAdornment>  }
+            fullWidth
             required
-          />
-          <TextField 
-            value={Number(Number(token1Value).toPrecision(4))} 
-            variant = 'standard' 
-            onChange={e=>setPosition(old=>({...old, token1Value: e.target.value}))} 
-            inputProps ={{min: 0, style: { textAlign: 'right' }}}
-            InputProps={{
-              endAdornment:<InputAdornment position='end'>USD</InputAdornment> 
-            }}
             size='small'
-            sx={{'& .MuiFormHelperText-root':{textAlign:'right', marginRight:1}}}
+            sx={{pl:1}}
+            inputProps ={{min: 0, style: { textAlign: 'right' }}}
+          />           
+          <ReactiveInput 
+            value = {Number(Number(token1Value).toPrecision(4))}  
+            updateValue={(value)=>{setPosition(old=>({...old, token1Value: value}))}} 
+            type = 'text'
+            variant='standard'
+            startAdornment={<InputAdornment position='start'>$</InputAdornment>  }
+            fullWidth
             required
-          />      
+            size='small'
+            sx={{pl:1}}
+            inputProps ={{min: 0, style: { textAlign: 'right' }}}
+          />   
         </Stack>
       </Box>
     </Box>

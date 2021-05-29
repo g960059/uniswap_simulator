@@ -8,6 +8,8 @@ import {withStyles} from '@material-ui/core/styles';
 
 
 const formatter = new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 4 })
+const formatter3 = new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 })
+
 
 const green = "#27AE60"
 
@@ -22,7 +24,7 @@ const LiquidityInfoBox = React.memo(() =>{
 
 
   const efficancy =useMemo(()=> (1 < m || M <1) ? 0 : 2/(2 - Math.sqrt(m)- 1 / Math.sqrt(M)), [m,M]) 
-  const minEfficancy = useMemo(()=>1 / (1- (m / M)**(1 / 4)), [m,M])
+  const minEfficancy = useMemo(()=>Math.min(1/(1-(m/M)**(1/4)),4000), [m,M])
 
   const deposit_ratio = useMemo(()=>{
     if (M <= 1){
@@ -54,7 +56,7 @@ const LiquidityInfoBox = React.memo(() =>{
             <Typography variant='caption'>Deposit ratio ({token0.symbol}:{token1.symbol})</Typography>
             <Typography variant='h5' style={{color:green}}>{deposit_ratio}</Typography>                  
             <Typography variant='caption'>Current fees per $ vs. V2</Typography>
-            <Typography variant='h5' style={{color:green}}>{minEfficancy.toPrecision(3)}x </Typography>
+            <Typography variant='h5' style={{color:green}}>{formatter3.format(minEfficancy)}x </Typography>
           </Box>
         </Grid>
         <Grid item xs={6}>

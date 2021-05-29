@@ -91,6 +91,7 @@ const PriceRangeSlider = React.memo(()=>{
               decimalScale ={minPrice * p0 <= 10 ? precision : 0}
               inputProps={{min: 0, style: { textAlign: 'center' }}}
               endAdornment= {<InputAdornment position="start" sx={{fontSize:'caption.fontSize'}}>{ticker}</InputAdornment>}
+              required
             />
           </FormControl>
         </Box>
@@ -107,6 +108,7 @@ const PriceRangeSlider = React.memo(()=>{
               decimalScale ={maxPrice * p0 <= 10 ? precision : 0}
               inputProps={{min: 0, style: { textAlign: 'center' }}}
               endAdornment= {<InputAdornment position="start">{ticker}</InputAdornment>}
+              required
             />
           </FormControl>
         </Box>      

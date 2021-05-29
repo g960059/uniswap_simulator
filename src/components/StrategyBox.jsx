@@ -166,8 +166,8 @@ const StrategyBox = React.memo(() =>{
         )}
 
     
-        <Box sx={{backgroundColor:'#f1f5f9', mx:-2, mb:2, px:1, py:2,mt:3}}>
-          <Typography variant='subtitle2' sx={{ml:2, pb:1}}>Strategy Summary</Typography>
+        <Box sx={{backgroundColor:'#f1f5f9', mx:-2, mb:2, px:1, py:2,mt:3, color:'slategrey'}}>
+          <Typography variant='subtitle1' sx={{ml:2, pb:1}}>Strategy Summary</Typography>
           <Grid container justifyContent='center' alignItems='center'>
             <Grid item xs={3}>
               <Typography variant='caption'>Total Value</Typography>

@@ -45,7 +45,7 @@ const LiquidityInfoBox = React.memo(() =>{
   },[m,M])
 
   return (
-    <Box p={1} sx={{backgroundColor:'#f1f5f9', mx:-2, mb:2, px:1, py:2,mt:3}}>
+    <Box p={1} sx={{backgroundColor:'#f1f5f9', mx:-2, mb:2, px:1, py:2,mt:3, color:'slategrey'}}>
       <Typography variant='subtitle1' sx={{ml:1}}>Position Summary</Typography>
       <Grid container justifyContent="center" alignItems="flex-start">
         <Grid item xs={6}>

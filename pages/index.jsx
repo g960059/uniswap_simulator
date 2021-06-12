@@ -77,23 +77,3 @@ const Simulator = () => {
 
 export default Simulator;
 
-
-{/* <Typography variant='h6'>All Current Positions</Typography>
-{uniswapV2BalanceData.uniswap_v2.balances.map(balance=>(
-  <Paper variant='outlined' sx={{my:1, p:2}} key={balance.pool_token.contract_address}>
-    <Grid container>
-      <Grid item xs={8}>
-        <Stack direction='row' spacing={1}>
-          <AvatarGroup max={2}>
-            <Avatar sx={{ width: 24, height: 24 }} src={balance.token_0.logo_url}>{balance.token_0.contract_ticker_symbol[0].toUpperCase()}</Avatar>  
-            <Avatar sx={{ width: 24, height: 24 }} src={balance.token_1.logo_url}>{balance.token_1.contract_ticker_symbol[0].toUpperCase()}</Avatar> 
-          </AvatarGroup>
-          <Typography variant='subtitle1'>{balance.token_0.contract_ticker_symbol}-{balance.token_1.contract_ticker_symbol}</Typography>
-        </Stack>
-      </Grid>
-      <Grid item xs={4}>
-        <Typography variant='subtitle1'>${Math.round(balance.pool_token.quote).toLocaleString()}</Typography>
-      </Grid>
-    </Grid>
-  </Paper>
-))} */}

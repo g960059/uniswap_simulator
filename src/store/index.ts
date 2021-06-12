@@ -13,6 +13,7 @@ import { Token } from '@uniswap/sdk-core'
 import {ChainId} from '@uniswap/sdk'
 import {computePoolAddress, FACTORY_ADDRESS,FeeAmount, tickToPrice, TickMath} from '@uniswap/v3-sdk'
 
+const prefix = 'osushi_2.0.2'
 
 export type LpPosition = {
   id:string;
@@ -85,8 +86,6 @@ export const convertToTokenInfo = token => new TokenInfo(ChainId.MAINNET,token.a
 
 export const ETH = new TokenInfo(ChainId.MAINNET, "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",18,"ETH","Ether", "https://assets.coingecko.com/coins/images/2518/thumb/weth.png?1547036627")
 export const USDC = new TokenInfo(ChainId.MAINNET,  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6, "USDC", "USD Coin", "https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389")
-
-const prefix = 'osushi_2.0.1'
 
 const client = new GraphQLClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswapv2")
 const clientV3 = new GraphQLClient('https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt')

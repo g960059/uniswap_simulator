@@ -1,4 +1,4 @@
-import React,{ useMemo} from 'react';
+import React,{ useMemo, useState} from 'react';
 import {Stack, Box, TextField, OutlinedInput, InputAdornment, Grid, Typography, IconButton, Menu, MenuItem} from '@material-ui/core';
 import {useAtom} from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
@@ -17,9 +17,8 @@ const format = (x) => Number(x.toPrecision(4))
 const StrategyBox = React.memo(() =>{
 
   const [strategy,setStrategy] = useAtom(selectedStrategyAtom)
-
-  const token0 = strategy.token0
-  const token1 = strategy.token1
+  const [token0, setToken0] = useState(strategy.token0);
+  const [token1, setToken1] = useState(strategy.token1);
   const currentPrices = useAtomValue(currentPricesAtom)
   const ethPrice = useAtomValue(ethPriceAtom)
   const token0Price = currentPrices[token0.address] * ethPrice
@@ -118,7 +117,7 @@ const StrategyBox = React.memo(() =>{
           sx={{ maxWidth:280, fontWeight: 600, mr:2}}
           fullWidth
         />
-        <TokenSelect token0={token0} token1={token1} setToken0={(token)=>{setStrategy(prev => ({...prev, token0: token}))}} setToken1={(token)=>{setStrategy(prev => ({...prev, token1: token}))}}/>
+        <TokenSelect token0={token0} token1={token1} setToken0={(token)=>{setStrategy(prev => ({...prev, token0: token}));setToken0(token);}} setToken1={(token)=>{setStrategy(prev => ({...prev, token1: token}));setToken1(token)}}/>
       </Stack>    
       <Box pt={2} >
         <Stack direction = "row" alignItems='center' justifyContent='space-between' sx={{mb:1, mt:0}}>

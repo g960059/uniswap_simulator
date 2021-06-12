@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/ReactiveInput.jsx", "src/components/PositionBox.jsx", "src/components/PlotBox.jsx", "pages/_app.jsx", "src/components/TokenSelect.jsx", "pages/simulator.jsx", "src/components/PriceSimulatonBox.jsx", "src/components/InfoBox.jsx", "src/components/AccountManagement.jsx"  ],
   "exclude": [
     "node_modules"
   ]

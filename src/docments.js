@@ -69,3 +69,15 @@ export const getEthPrice = `
     }    
   }
 `
+export const getPoolDayData = `
+  query getPoolDayData($poolAddress: Bytes!){
+    poolDayDatas(where:{pool: $poolAddress},orderBy:date, orderDirection:desc,first:15){
+      date,
+      volumeUSD,
+      feesUSD,
+      tvlUSD,
+      feeGrowthGlobal0X128,
+      feeGrowthGlobal1X128
+    }
+  }
+`

@@ -1,9 +1,11 @@
 import React,{ useMemo} from 'react';
-import {Stack, Box, TextField, OutlinedInput, InputAdornment, Button, Avatar, Typography} from '@material-ui/core';
+import {Stack, Box, TextField, OutlinedInput, InputAdornment, Button, Avatar, Typography,ToggleButton, ToggleButtonGroup} from '@material-ui/core';
 import {useAtom} from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { token0Atom, token1Atom,  ethPriceAtom,token0PriceAtom, token1PriceAtom, selectedPositionAtom} from '../store/index'
 import ReactiveInput from './ReactiveInput'
+import {FeeAmount} from '@uniswap/v3-sdk'
+
 
 const formatter = new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 4 })
 const format = (x) => Number(x.toPrecision(6))
@@ -45,7 +47,7 @@ const DepositAmountInputs = React.memo(() =>{
   }
   
 
-  return (
+  return <>
     <Box pt={1}>
       <Typography variant='subtitle2' color='text.secondary'>Token Amount</Typography>
       <Stack direction='row' spacing={2} >
@@ -71,7 +73,19 @@ const DepositAmountInputs = React.memo(() =>{
         />                      
       </Stack>
     </Box>
-  )
+    <Box pt={1}>
+      <Typography variant='subtitle2' color='text.secondary'>Fee</Typography>
+      <ToggleButtonGroup
+        value={position.feeAmount}
+        exclusive
+        onChange={(e,newFeeAmount)=>{setPosition(prev=>({...prev,feeAmount:newFeeAmount}))}}
+      >
+        <ToggleButton value={FeeAmount.LOW} sx={{'&.Mui-selected':{backgroundColor:"#f1f5f9", borderRight:'1px solid #5c93bb2b !important'}}}>0.05%</ToggleButton>
+        <ToggleButton value={FeeAmount.MEDIUM} sx={{'&.Mui-selected':{backgroundColor:"#f1f5f9",borderRight:'1px solid #5c93bb2b !important',borderLeft:'1px solid #5c93bb2b !important'}}}>0.3%</ToggleButton>
+        <ToggleButton value={FeeAmount.HIGH} sx={{'&.Mui-selected':{backgroundColor:"#f1f5f9",borderLeft:'1px solid #5c93bb2b !important'}}}>1%</ToggleButton>
+      </ToggleButtonGroup>      
+    </Box>
+  </>
 })
 
 export default DepositAmountInputs

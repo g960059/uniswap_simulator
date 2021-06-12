@@ -129,7 +129,7 @@ const LiquidityInfoBox = React.memo(() =>{
                   <Typography variant='h5'>$ {fees0 && formatter.format(fees0[7])}</Typography> 
                   <Typography variant='caption'>{token1.symbol} fees (7Day)</Typography>
                   <Typography variant='h5'>$ {fees1 && formatter.format(fees1[7])}</Typography>    
-                  <Typography variant='caption'>{token1.symbol} APY (Avg. 7Day)</Typography>
+                  <Typography variant='caption'>APY (Avg. 7Day)</Typography>
                   <Typography variant='h5'>{fees1 && fees0 && formatter.format((fees1[7] + fees0[7] * token0Price / token1Price)/depositAmount/7*365*100)} %</Typography>                           
                 </Box> 
               </Grid>
@@ -139,7 +139,7 @@ const LiquidityInfoBox = React.memo(() =>{
                   <Typography variant='h5'>$ {fees0 && formatter.format(fees0[14])}</Typography> 
                   <Typography variant='caption'>{token1.symbol} fees (14Day)</Typography>
                   <Typography variant='h5'>$ {fees1 &&formatter.format(fees1[14])}</Typography>    
-                  <Typography variant='caption'>{token1.symbol} APY (Avg. 14Day)</Typography>
+                  <Typography variant='caption'>APY (Avg. 14Day)</Typography>
                   <Typography variant='h5'>{fees1 && fees0 && formatter.format((fees1[14] + fees0[14] * token0Price / token1Price)/depositAmount/14*365*100)} %</Typography>              
                 </Box> 
               </Grid>          

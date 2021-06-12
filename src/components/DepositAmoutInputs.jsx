@@ -45,6 +45,7 @@ const DepositAmountInputs = React.memo(() =>{
     if(M <= 1) throw Error('token0 amount should be 0')
     if(1 <= m)  setPosition(oldPosition =>({...oldPosition, depositValue: newAmount * p * ethPrice * token1Price }))
   }
+  console.log(position.feeAmount)
   
 
   return <>

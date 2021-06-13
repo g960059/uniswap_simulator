@@ -126,9 +126,9 @@ const LiquidityInfoBox = React.memo(() =>{
               <Grid item xs={6}>
                 <Box pl={1}>
                   <Typography variant='caption'>{token0.symbol} fees (7Day)</Typography>
-                  <Typography variant='h5'>$ {fees0 && formatter.format(fees0[7])}</Typography> 
-                  <Typography variant='caption'>{token1.symbol} fees (7Day)</Typography>
-                  <Typography variant='h5'>$ {fees1 && formatter.format(fees1[7])}</Typography>    
+                  <Typography variant='h5'>{fees0 && formatter.format(fees0[7])} {token0.symbol}</Typography> 
+                  <Typography variant='caption'>{token1.symbol} fees (7Day) {token1.symbol}</Typography>
+                  <Typography variant='h5'>{fees1 && formatter.format(fees1[7])}</Typography>    
                   <Typography variant='caption'>APY (Avg. 7Day)</Typography>
                   <Typography variant='h5'>{fees1 && fees0 && formatter.format((fees1[7] + fees0[7] * token0Price / token1Price)/depositAmount/7*365*100)} %</Typography>                           
                 </Box> 
@@ -136,9 +136,9 @@ const LiquidityInfoBox = React.memo(() =>{
               <Grid item xs={6}>
                 <Box>
                   <Typography variant='caption'>{token0.symbol} fees (14Day)</Typography>
-                  <Typography variant='h5'>$ {fees0 && formatter.format(fees0[14])}</Typography> 
+                  <Typography variant='h5'>{fees0 && formatter.format(fees0[14])} {token0.symbol}</Typography> 
                   <Typography variant='caption'>{token1.symbol} fees (14Day)</Typography>
-                  <Typography variant='h5'>$ {fees1 &&formatter.format(fees1[14])}</Typography>    
+                  <Typography variant='h5'>{fees1 &&formatter.format(fees1[14])} {token1.symbol}</Typography>    
                   <Typography variant='caption'>APY (Avg. 14Day)</Typography>
                   <Typography variant='h5'>{fees1 && fees0 && formatter.format((fees1[14] + fees0[14] * token0Price / token1Price)/depositAmount/14*365*100)} %</Typography>              
                 </Box> 
@@ -150,21 +150,21 @@ const LiquidityInfoBox = React.memo(() =>{
             <Grid container justifyContent="center" alignItems="flex-start">
               <Grid item xs={6}>
                 <Box pl={1}>
-                  <Typography variant='caption'>TVL(7Day Avg.)</Typography>
+                  <Typography variant='caption'>TVL/day (Avg. 7Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('tvlUSD',7))}</Typography> 
-                  <Typography variant='caption'>Volume(7Day Avg.)</Typography>
+                  <Typography variant='caption'>Volume/day (Avg. 7Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('volumeUSD',7))}</Typography> 
-                  <Typography variant='caption'>Total Fees(7Day Avg.)</Typography>
+                  <Typography variant='caption'>Total Fees/day (Avg. 7Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('feesUSD',7))}</Typography>                        
                 </Box> 
               </Grid>
               <Grid item xs={6}>
                 <Box>
-                <Typography variant='caption'>TVL(14Day Avg.)</Typography>
+                <Typography variant='caption'>TVL/day (Avg. 14Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('tvlUSD',14))}</Typography> 
-                  <Typography variant='caption'>Volume(14Day Avg.)</Typography>
+                  <Typography variant='caption'>Volume/day (Avg. 14Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('volumeUSD',14))}</Typography> 
-                  <Typography variant='caption'>Total Fees(14Day Avg.)</Typography>
+                  <Typography variant='caption'>Total Fees/day (Avg. 14Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('feesUSD',14))}</Typography>                            
                 </Box> 
               </Grid>          

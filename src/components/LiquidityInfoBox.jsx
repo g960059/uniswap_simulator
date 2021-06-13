@@ -127,8 +127,8 @@ const LiquidityInfoBox = React.memo(() =>{
                 <Box pl={1}>
                   <Typography variant='caption'>{token0.symbol} fees (7Day)</Typography>
                   <Typography variant='h5'>{fees0 && formatter.format(fees0[7])} {token0.symbol}</Typography> 
-                  <Typography variant='caption'>{token1.symbol} fees (7Day) {token1.symbol}</Typography>
-                  <Typography variant='h5'>{fees1 && formatter.format(fees1[7])}</Typography>    
+                  <Typography variant='caption'>{token1.symbol} fees (7Day)</Typography>
+                  <Typography variant='h5'>{fees1 && formatter.format(fees1[7])} {token1.symbol}</Typography>    
                   <Typography variant='caption'>APY (Avg. 7Day)</Typography>
                   <Typography variant='h5'>{fees1 && fees0 && formatter.format((fees1[7] + fees0[7] * token0Price / token1Price)/depositAmount/7*365*100)} %</Typography>                           
                 </Box> 

@@ -154,7 +154,7 @@ const LiquidityInfoBox = React.memo(() =>{
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('tvlUSD',7))}</Typography> 
                   <Typography variant='caption'>Volume/day (Avg. 7Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('volumeUSD',7))}</Typography> 
-                  <Typography variant='caption'>Total Fees/day (Avg. 7Day)</Typography>
+                  <Typography variant='caption'>Fees/day (Avg. 7Day)</Typography>
                   <Typography variant='h5'>$ {formatter.format(getAveratePoolData('feesUSD',7))}</Typography>                        
                 </Box> 
               </Grid>
